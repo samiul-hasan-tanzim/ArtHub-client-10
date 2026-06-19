@@ -1,16 +1,20 @@
 'use client'
 import { useRef, useState } from "react";
-import { Link, Button, Dropdown, Avatar } from "@heroui/react";
+import { Button, Dropdown, Avatar } from "@heroui/react";
 import Image from "next/image";
 import logo from "../asstes/logo.png";
 import { playfair } from "@/lib/fonts";
 import { useTheme } from "next-themes";
 import { Menu, Moon, Sun, X, Search } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { theme, setTheme } = useTheme();
     const inputRef = useRef(null);
+    const pathname = usePathname();
+
 
     const handleWrapperClick = () => {
         inputRef.current?.focus();
@@ -21,6 +25,7 @@ const Navbar = () => {
         { name: 'Browse Artworks', href: '/artworks' },
         { name: 'Dashboard', href: '/gggg' },
     ]
+
 
 
     return (
@@ -38,42 +43,77 @@ const Navbar = () => {
                 </div>
 
                 <ul className="hidden items-center gap-8 md:flex absolute left-1/2 transform -translate-x-1/2">
-                    {navlinks.map((navlink, i) => (
-                        <li key={i} className="relative group">
-                            {navlink.name === "Dashboard" ? (
-                                <Dropdown>
-                                    <Button className={'w-10 h-10 rounded-full'}>
-                                        <Avatar>
-                                            <Avatar.Image alt="John Doe" src="https://img.heroui.chat/image/avatar?w=400&h=400&u=3" />
-                                            <Avatar.Fallback>JD</Avatar.Fallback>
-                                        </Avatar>
-                                    </Button>
+                    {navlinks.map((navlink, i) => {
+                        const isActive = pathname === navlink.href;
 
-                                    <Dropdown.Popover>
-                                        <Dropdown.Menu>
-                                            <Dropdown.Item key={'item.id'} textValue={'item.name'}>
-                                                <Link href={navlink.href} className="block w-full">
-                                                    <p>Dashboard</p>
-                                                </Link>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item onClick={() => setTheme(theme === "dark" ? "light" : "dark")} key="theme-toggle" textValue="theme toggle">
-                                                <button className="flex flex-row-reverse justify-between w-full items-center transition">
-                                                    {theme === "dark" ? <><Sun size={16} />Light Mode</> : <><Moon size={16} />Dark Mode</>}
-                                                </button>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item key="auth" textValue="auth log">
-                                                <button>Logout</button>
-                                            </Dropdown.Item>
-                                        </Dropdown.Menu>
-                                    </Dropdown.Popover>
-                                </Dropdown>
-                            ) : (
-                                <Link href={navlink.href} className="text-zinc-600 dark:text-zinc-400 font-medium hover:text-foreground text-sm transition-colors">
-                                    {navlink.name}
-                                </Link>
-                            )}
-                        </li>
-                    ))}
+                        return (
+                            <li key={i} className="relative">
+                                {navlink.name === "Dashboard" ? (
+                                    <Dropdown>
+                                        <Button className={`w-10 h-10 rounded-full ${isActive ? "ring-2 ring-black dark:ring-white" : ""
+                                            }`}>
+                                            <Avatar>
+                                                <Avatar.Image
+                                                    alt="John Doe"
+                                                    src="https://img.heroui.chat/image/avatar?w=400&h=400&u=3"
+                                                />
+                                                <Avatar.Fallback>JD</Avatar.Fallback>
+                                            </Avatar>
+                                        </Button>
+
+                                        <Dropdown.Popover>
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item textValue="dashboard">
+                                                    <Link href={navlink.href} className="block w-full">
+                                                        Dashboard
+                                                    </Link>
+                                                </Dropdown.Item>
+
+                                                <Dropdown.Item
+                                                    onClick={() =>
+                                                        setTheme(theme === "dark" ? "light" : "dark")
+                                                    }
+                                                    textValue="theme toggle"
+                                                >
+                                                    <button className="flex flex-row-reverse justify-between w-full items-center">
+                                                        {theme === "dark" ? (
+                                                            <>
+                                                                <Sun size={16} /> Light Mode
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <Moon size={16} /> Dark Mode
+                                                            </>
+                                                        )}
+                                                    </button>
+                                                </Dropdown.Item>
+
+                                                <Dropdown.Item textValue="logout">
+                                                    <button>Logout</button>
+                                                </Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown.Popover>
+                                    </Dropdown>
+                                ) : (
+                                    <Link
+                                        href={navlink.href}
+                                        className={`relative text-sm font-medium transition-colors ${isActive
+                                            ? "text-black dark:text-white"
+                                            : "text-zinc-500 hover:text-black dark:hover:text-white"
+                                            }`}
+                                    >
+                                        {navlink.name}
+
+                                        {/* animated underline */}
+                                        <span
+                                            className={`absolute left-0 -bottom-1 h-0.5 bg-black dark:bg-white transition-all duration-300 origin-left ${isActive ? "w-full scale-x-100" : "w-0 scale-x-0 group-hover:w-full group-hover:scale-x-100"
+                                                }`}
+                                        />
+                                    </Link>
+                                )}
+                            </li>
+                        );
+                    })}
                 </ul>
 
                 <div className="hidden items-center gap-6 md:flex">

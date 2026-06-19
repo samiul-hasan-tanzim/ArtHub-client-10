@@ -1,10 +1,11 @@
+import Hero from "@/components/Home/Hero";
 
 export default function Home() {
 
 
   return (
-    <div className="h-10000">
-
+    <div>
+      <Hero />
     </div>
   );
 }
