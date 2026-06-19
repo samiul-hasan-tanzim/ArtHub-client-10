@@ -1,15 +1,15 @@
 'use client'
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { playfair } from "@/lib/fonts";
-import Image from "next/image";
 
 const artworks = [
-    { id: 1, img: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5" },
-    { id: 2, img: "https://images.unsplash.com/photo-1547891654-e66ed7ebb968" },
-    { id: 3, img: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b" }
+    { id: 1, img: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=800&q=80" },
+    { id: 2, img: "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?auto=format&fit=crop&w=800&q=80" },
+    { id: 3, img: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=800&q=80" }
 ];
 
 const container = {
@@ -22,17 +22,17 @@ const item = {
     show: { opacity: 1, y: 0, transition: { duration: 0.8 } }
 };
 
-const Hero = () => {
+const HeroSection = () => {
     return (
-        <section className="min-h-[92vh] flex items-center">
-            <div className="w-11/12 mx-auto grid lg:grid-cols-2 gap-14 items-center">
+        <section className="min-h-[92vh] flex items-center py-16">
+            <div className="w-11/12 mx-auto grid lg:grid-cols-2 gap-12 items-center">
 
                 <motion.div variants={container} initial="hidden" animate="show" className="max-w-3xl">
                     <motion.span variants={item} className="text-xs tracking-[0.25em] font-semibold text-amber-500 block mb-6">
                         EST. 2024 — CONTEMPORARY COLLECTIVE
                     </motion.span>
 
-                    <motion.h1 variants={item} className={`${playfair.className} text-6xl md:text-8xl lg:text-[8rem] font-black leading-[0.85] uppercase tracking-tight`}>
+                    <motion.h1 variants={item} className={`${playfair.className} text-5xl sm:text-7xl lg:text-[8rem] font-black leading-[0.85] uppercase tracking-tight`}>
                         The New <br /> Canvas
                     </motion.h1>
 
@@ -49,18 +49,13 @@ const Hero = () => {
                     </motion.div>
                 </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0, x: 60 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 1 }}
-                    className="flex justify-center lg:justify-end"
-                >
-                    <div className="flex gap-4 lg:gap-5 h-65 md:h-85 lg:h-130 overflow-x-auto lg:overflow-visible no-scrollbar">
+                <motion.div initial={{ opacity: 0, x: 60 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }}>
+                    <div className="flex gap-4 lg:gap-5 overflow-x-auto lg:overflow-visible no-scrollbar py-4">
 
                         {artworks.map((art, i) => (
                             <motion.div
                                 key={art.id}
-                                animate={{ y: window.innerWidth > 1024 ? (i % 2 === 0 ? [0, -15, 0] : [0, 15, 0]) : 0 }}
+                                animate={{ y: i % 2 === 0 ? [0, -15, 0] : [0, 15, 0] }}
                                 transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut" }}
                                 whileHover={{ scale: 1.04 }}
                                 className={`shrink-0 overflow-hidden ${i === 1 ? "lg:mt-14" : ""}`}
@@ -68,9 +63,10 @@ const Hero = () => {
                                 <Image
                                     src={art.img}
                                     alt="artwork"
-                                    width={300}
+                                    width={320}
                                     height={500}
-                                    className="w-36 md:w-44 lg:w-52 h-full object-cover grayscale hover:grayscale-0 transition duration-500"
+                                    priority={i === 0}
+                                    className="w-36 sm:w-44 lg:w-52 h-60 sm:h-75 lg:h-125 object-cover grayscale hover:grayscale-0 transition duration-500"
                                 />
                             </motion.div>
                         ))}
@@ -80,8 +76,7 @@ const Hero = () => {
 
             </div>
         </section>
-
     );
 };
 
-export default Hero;
+export default HeroSection;
