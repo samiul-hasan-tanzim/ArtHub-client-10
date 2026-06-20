@@ -8,12 +8,16 @@ import { useTheme } from "next-themes";
 import { Menu, Moon, Sun, X, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { theme, setTheme } = useTheme();
     const inputRef = useRef(null);
     const pathname = usePathname();
+
+    const { data: session, isPending } = authClient.useSession()
+    const user = session?.user
 
 
     const handleWrapperClick = () => {
@@ -23,8 +27,21 @@ const Navbar = () => {
     const navlinks = [
         { name: 'Home', href: '/' },
         { name: 'Browse Artworks', href: '/artworks' },
-        { name: 'Dashboard', href: '/gggg' },
     ]
+
+    const dashboardLinks = {
+        user: '/dashboard/user',
+        artist: '/dashboard/artist',
+        admin: '/dashboard/admin'
+    }
+    if (user?.email) {
+        navlinks.push(
+            {
+                name: 'Dashboard',
+                href: dashboardLinks[user?.role || 'user']
+            }
+        )
+    }
 
 
 
@@ -89,7 +106,7 @@ const Navbar = () => {
                                                 </Dropdown.Item>
 
                                                 <Dropdown.Item textValue="logout">
-                                                    <button>Logout</button>
+                                                    <button onClick={async () => await authClient.signOut()}>Logout</button>
                                                 </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown.Popover>
@@ -134,11 +151,15 @@ const Navbar = () => {
                         />
                     </div>
 
-                    <Link href="/login">
-                        <button className="border-zinc-800 underline border dark:border-zinc-200 text-foreground font-bold rounded-none px-6 py-2 tracking-wide hover:bg-foreground hover:text-background transition-all text-xs">
-                            Login
-                        </button>
-                    </Link>
+                    {
+                        !user && (
+                            <Link href="/login">
+                                <button className="border-zinc-800 underline border dark:border-zinc-200 text-foreground font-bold rounded-none px-6 py-2 tracking-wide hover:bg-foreground hover:text-background transition-all text-xs">
+                                    Login
+                                </button>
+                            </Link>
+                        )
+                    }
                 </div>
             </header>
 
@@ -158,10 +179,24 @@ const Navbar = () => {
                             {theme === "dark" ? <><Sun size={16} />Light Mode</> : <><Moon size={16} />Dark Mode</>}
                         </button>
                         <li className="mt-4 flex flex-col gap-2 border-t border-separator pt-4">
-                            <Link href="#" className="block py-2">
-                                Login
-                            </Link>
-                            <Button className="w-full">Sign Up</Button>
+                            {
+                                !user && (
+                                    <Link href="/login">
+                                        <button className="border-zinc-800 underline border dark:border-zinc-200 text-foreground font-bold rounded-none px-6 py-2 tracking-wide hover:bg-foreground hover:text-background transition-all text-xs">
+                                            Login
+                                        </button>
+                                    </Link>
+                                )
+                            }
+                            {
+                                user ? <Button className="w-full">Sign Out</Button> : (
+                                    <div>
+                                        <Link href={'/register'}>
+                                            <Button className="w-full">Sign Up</Button>
+                                        </Link>
+                                    </div>
+                                )
+                            }
                         </li>
                     </ul>
                 </div>
