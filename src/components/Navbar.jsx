@@ -19,7 +19,6 @@ const Navbar = () => {
     const { data: session, isPending } = authClient.useSession()
     const user = session?.user
 
-
     const handleWrapperClick = () => {
         inputRef.current?.focus();
     };
@@ -72,9 +71,9 @@ const Navbar = () => {
                                             <Avatar>
                                                 <Avatar.Image
                                                     alt="John Doe"
-                                                    src="https://img.heroui.chat/image/avatar?w=400&h=400&u=3"
+                                                    src={user?.image}
                                                 />
-                                                <Avatar.Fallback>JD</Avatar.Fallback>
+                                                <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
                                             </Avatar>
                                         </Button>
 
@@ -189,7 +188,7 @@ const Navbar = () => {
                                 )
                             }
                             {
-                                user ? <Button className="w-full">Sign Out</Button> : (
+                                user ? <Button onClick={async () => await authClient.signOut()} className="w-full">Sign Out</Button> : (
                                     <div>
                                         <Link href={'/register'}>
                                             <Button className="w-full">Sign Up</Button>

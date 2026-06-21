@@ -14,24 +14,23 @@ const SignUpPage = () => {
     const [role, setRole] = useState('user')
 
     const handleImageChange = (e) => {
-        // const file = e.target.files?.[0];
-        // if (!file) return;
-        // setImageFile(file);
-        // setPreview(URL.createObjectURL(file));
+        const file = e.target.files?.[0];
+        if (!file) return;
+        setImageFile(file);
+        setPreview(URL.createObjectURL(file));
     };
 
     const uploadToImgBB = async (file) => {
-        // const formData = new FormData();
-        // formData.append("image", file);
+        const formData = new FormData();
+        formData.append("image", file);
 
-        // const res = await fetch(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_KEY}`, {
-        //     method: "POST",
-        //     body: formData
-        // });
+        const res = await fetch(`https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_KEY}`, {
+            method: "POST",
+            body: formData
+        });
 
-        // const data = await res.json();
-        // console.log(data);
-        // return data?.data?.url;
+        const data = await res.json();
+        return data?.data?.url;
     };
 
     const onSubmit = async e => {
@@ -45,15 +44,19 @@ const SignUpPage = () => {
             name: formData.get("fullName"),
             email: formData.get("email"),
             password: formData.get("password"),
-            // confirmPassword: formData.get("confirmPassword"),
-            // photo: imageUrl
+            image: imageUrl
         };
-
-        const { data, error } = await authClient.signUp.email({
-            ...userData,
-            role,
-        });
-        console.log(data, error?.message)
+        const password = formData.get('password')
+        const confirmPassword = formData.get('confirmPassword')
+        if (password === confirmPassword) {
+            const { data, error } = await authClient.signUp.email({
+                ...userData,
+                role,
+            });
+        }
+        else {
+            alert('Password not matched')
+        }
     };
 
     const handelSocialAuth = async () => {
