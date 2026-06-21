@@ -7,6 +7,7 @@ import { UploadCloud } from "lucide-react";
 import { playfair } from "@/lib/fonts";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 const SignUpPage = () => {
     const [preview, setPreview] = useState(null);
@@ -53,10 +54,17 @@ const SignUpPage = () => {
                 ...userData,
                 role,
             });
+            if (data?.user?.role === 'user') {
+                redirect('/')
+            }
+            else {
+                redirect(`/dashboard/${data?.user?.role}`)
+            }
         }
         else {
-            alert('Password not matched')
+            return alert('Password not matched')
         }
+
     };
 
     const handelSocialAuth = async () => {

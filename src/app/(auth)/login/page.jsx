@@ -16,6 +16,7 @@ import {
 
 import { Check } from "@gravity-ui/icons";
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from "lucide-react";
+import { redirect } from "next/navigation";
 
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -44,9 +45,14 @@ const LoginPage = () => {
             return;
         }
 
-        console.log(data);
         setLoading(false);
 
+        if (data?.user?.role === 'user') {
+            redirect('/')
+        }
+        else {
+            redirect(`/dashboard/${data?.user?.role}`)
+        }
         // router.push("/")
     };
 

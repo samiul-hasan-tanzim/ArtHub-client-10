@@ -4,6 +4,7 @@ import { Person } from "@gravity-ui/icons";
 import { Avatar, Button, Chip, Drawer, Input } from "@heroui/react";
 import { LayoutDashboard, Palette, ShoppingBag, DollarSign, Users, BarChart3, Search, House, ArrowLeftFromLine, CreditCard, ImageIcon, PlusSquare, LogOut, Menu } from "lucide-react";
 import Link from "next/link";
+import LogoutButton from "../logout-button";
 
 const DashboardSideBar = async () => {
     const user = await getUserSession();
@@ -92,9 +93,7 @@ const DashboardSideBar = async () => {
                         </Button>
                     </Link>
 
-                    <Button variant="light">
-                        <LogOut size={16} /> Logout
-                    </Button>
+                    <LogoutButton />
 
                 </div>
             </aside>
@@ -150,9 +149,7 @@ const DashboardSideBar = async () => {
                                             </Button>
                                         </Link>
 
-                                        <Button variant="light">
-                                            <LogOut size={16} /> Logout
-                                        </Button>
+                                        <LogoutButton />
 
                                     </div>
 
