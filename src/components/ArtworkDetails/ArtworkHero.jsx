@@ -1,24 +1,10 @@
-'use client'
-
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Heart, Share2 } from "lucide-react";
 import { playfair } from "@/lib/fonts";
 
-const artwork = {
-    id: 1,
-    title: "The Blue Solitude",
-    artist: "Julian Thorne",
-    image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=1000&q=80",
-    category: "Digital Art",
-    dimensions: '24" × 36"',
-    price: "$4,200",
-    status: "Available",
-    description:
-        "A profound exploration of light and shadow on the deep ocean, capturing the transient beauty of the horizon at dusk."
-};
+const ArtworkHero = async ({ artwork }) => {
 
-const ArtworkHero = () => {
     return (
         <section className="pt-10 lg:pt-14 pb-16">
             <div className="w-10/12 mx-auto grid lg:grid-cols-[1.55fr_0.75fr] gap-10 lg:gap-12 items-start">
@@ -29,8 +15,8 @@ const ArtworkHero = () => {
 
                         <div className="relative overflow-hidden bg-white dark:bg-black p-2 shadow-xl">
                             <Image
-                                src={artwork.image}
-                                alt={artwork.title}
+                                src={artwork?.image}
+                                alt={artwork?.artName}
                                 width={800}
                                 height={900}
                                 className="w-full h-125 lg:h-155 object-cover transition-transform duration-700 group-hover:scale-105"
@@ -54,11 +40,11 @@ const ArtworkHero = () => {
                         </nav>
 
                         <h1 className={`${playfair.className} text-4xl md:text-5xl font-black tracking-tight leading-none`}>
-                            {artwork.title}
+                            {artwork.artName}
                         </h1>
 
                         <Link href="#" className="mt-4 block text-lg font-medium text-zinc-500 hover:text-black dark:hover:text-white transition-colors">
-                            {artwork.artist}
+                            {artwork.artistName}
                         </Link>
                     </header>
 
@@ -85,7 +71,8 @@ const ArtworkHero = () => {
                                 <p className="text-xs uppercase tracking-[0.2em] text-zinc-400 mb-2">
                                     Dimensions
                                 </p>
-                                <p className="font-medium">{artwork.dimensions}</p>
+                                {/* <p className="font-medium">{artwork.dimensions}</p> */}
+                                <p className="font-medium">24&quot; × 36&quot;</p>
                             </div>
                         </div>
                     </div>
@@ -97,7 +84,7 @@ const ArtworkHero = () => {
                             </span>
 
                             <span className={`${playfair.className} text-3xl font-bold`}>
-                                {artwork.price}
+                                ${artwork.price}
                             </span>
                         </div>
 

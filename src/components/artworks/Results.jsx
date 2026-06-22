@@ -5,13 +5,14 @@ import { getAllArtWorks } from "@/lib/api/getAllArtWorks";
 
 const Results = async () => {
     const artworks = await getAllArtWorks()
+
     return (
         <div>
             <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-8">
                 {artworks.map((art, i) => (
                     <article key={i} className={`mb-8 break-inside-avoid group ${art.sold ? "opacity-70" : ""}`}>
 
-                        <Link href={`/artworks/${i + 1}`}>
+                        <Link href={`/artworks/${art?._id}`}>
                             <div className="relative overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-900 shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer">
                                 <Image
                                     src={art?.image}
@@ -41,7 +42,7 @@ const Results = async () => {
 
                         <div className="pt-5 flex justify-between items-start">
                             <div>
-                                <Link href={`/artworks/${i + 1}`}>
+                                <Link href={`/artworks/${art?._id}`}>
                                     <h3 className="text-lg font-semibold hover:underline underline-offset-4 cursor-pointer">
                                         {art.artName}
                                     </h3>
