@@ -1,6 +1,56 @@
+'use client'
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const PaymentSuccessPage = () => {
+    const searchParams = useSearchParams();
+
+    const sessionId = searchParams.get("session_id");
+
+    useEffect(() => {
+        const getSession = async () => {
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/checkout-session/${sessionId}`
+            );
+
+            const data = await res.json();
+
+            // console.log(data);
+            await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/orders`, {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    stripeSessionId: data.id,
+
+                    buyerId: data.metadata.buyerId,
+                    buyerEmail: data.metadata.buyerEmail,
+
+                    artworkId: data.metadata.artworkId,
+                    artworkName: data.metadata.artworkName,
+
+                    artistId: data.metadata.artistId,
+                    artistName: data.metadata.artistName,
+
+                    price: Number(data.metadata.price),
+
+                    paymentStatus: data.payment_status,
+
+                    createdAt: new Date().toISOString()
+                })
+            });
+        };
+
+        if (sessionId) {
+            getSession();
+        }
+    }, [sessionId]);
+
+
     return (
         <section className="min-h-screen flex items-center justify-center px-4">
             <div className="text-center max-w-lg">

@@ -4,7 +4,8 @@ import { ArrowRight, Heart, Share2 } from "lucide-react";
 import { playfair } from "@/lib/fonts";
 import CheckoutButton from "./CheckoutButton";
 
-const ArtworkHero = async ({ artwork }) => {
+const ArtworkHero = async ({ artwork, user }) => {
+    // console.log('artwork', artwork, 'logged in user', user)
 
     return (
         <section className="pt-10 lg:pt-14 pb-16">
@@ -95,6 +96,14 @@ const ArtworkHero = async ({ artwork }) => {
                         <CheckoutButton
                             artName={artwork.artName}
                             price={artwork.price}
+
+                            buyerId={user.id}
+                            buyerEmail={user.email}
+
+                            artworkId={artwork._id}
+
+                            artistId={artwork.artistId}
+                            artistName={artwork.artistName}
                         />
 
                         <div className="grid grid-cols-2 gap-4">

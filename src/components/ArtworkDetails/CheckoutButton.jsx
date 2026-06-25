@@ -1,6 +1,6 @@
 "use client";
 
-const CheckoutButton = ({ artName, price }) => {
+const CheckoutButton = ({ artName, price, buyerId, buyerEmail, artworkId, artistId, artistName }) => {
 
     const handleCheckout = async () => {
 
@@ -15,7 +15,15 @@ const CheckoutButton = ({ artName, price }) => {
 
                     body: JSON.stringify({
                         artName,
-                        price
+                        price,
+
+                        buyerId,
+                        buyerEmail,
+
+                        artworkId,
+
+                        artistId,
+                        artistName
                     })
                 }
             );

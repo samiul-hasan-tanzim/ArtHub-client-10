@@ -15,7 +15,7 @@ const DetailsPage = async ({ params }) => {
 
     return (
         <div>
-            <ArtworkHero artwork={artwork} />
+            <ArtworkHero user={user} artwork={artwork} />
             <ArtistSection artistData={artwork} />
             <Comments user={user} artWorkId={artwork?._id} commentsByArtWork={commentsByArtWork} />
         </div>
