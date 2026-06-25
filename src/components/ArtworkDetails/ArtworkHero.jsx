@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Heart, Share2 } from "lucide-react";
 import { playfair } from "@/lib/fonts";
+import CheckoutButton from "./CheckoutButton";
 
 const ArtworkHero = async ({ artwork }) => {
 
@@ -88,9 +89,13 @@ const ArtworkHero = async ({ artwork }) => {
                             </span>
                         </div>
 
-                        <button className="w-full py-4 bg-black text-white dark:bg-white dark:text-black text-xs font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-3 hover:scale-[1.01] transition-all">
+                        {/* <button className="w-full py-4 bg-black text-white dark:bg-white dark:text-black text-xs font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-3 hover:scale-[1.01] transition-all">
                             Purchase Piece <ArrowRight size={18} />
-                        </button>
+                        </button> */}
+                        <CheckoutButton
+                            artName={artwork.artName}
+                            price={artwork.price}
+                        />
 
                         <div className="grid grid-cols-2 gap-4">
                             <button className="border border-zinc-200 dark:border-zinc-800 py-3 text-xs uppercase tracking-[0.15em] flex justify-center items-center gap-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all">
