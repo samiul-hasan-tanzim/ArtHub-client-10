@@ -4,8 +4,8 @@ import { ArrowRight, Heart, Share2 } from "lucide-react";
 import { playfair } from "@/lib/fonts";
 import CheckoutButton from "./CheckoutButton";
 
-const ArtworkHero = async ({ artwork, user }) => {
-    // console.log('artwork', artwork, 'logged in user', user)
+const ArtworkHero = async ({ artwork, user, orders, plans }) => {
+    // console.log('plan', plans)
 
     return (
         <section className="pt-10 lg:pt-14 pb-16">
@@ -93,19 +93,46 @@ const ArtworkHero = async ({ artwork, user }) => {
                         {/* <button className="w-full py-4 bg-black text-white dark:bg-white dark:text-black text-xs font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-3 hover:scale-[1.01] transition-all">
                             Purchase Piece <ArrowRight size={18} />
                         </button> */}
-                        <CheckoutButton
-                            artName={artwork.artName}
-                            price={artwork.price}
+                        {
+                            !user ? (
+                                <Link
+                                    href="/login"
+                                    className="w-full py-4 bg-black text-white dark:bg-white dark:text-black text-xs font-bold uppercase tracking-[0.25em] flex items-center justify-center"
+                                >
+                                    Login To Purchase
+                                </Link>
+                            ) : plans?.maxBuy !== -1 && orders?.length >= plans?.maxBuy ? (
+                                <div className="space-y-3">
+                                    <button
+                                        disabled
+                                        className="w-full py-4 bg-zinc-300 dark:bg-zinc-700 cursor-not-allowed text-xs font-bold uppercase tracking-[0.25em]"
+                                    >
+                                        Purchase Limit Reached
+                                    </button>
 
-                            buyerId={user.id}
-                            buyerEmail={user.email}
+                                    <p className="text-xs text-center text-zinc-500">
+                                        You have reached your plan limit.
+                                    </p>
 
-                            artworkId={artwork._id}
-
-                            artistId={artwork.artistId}
-                            artistName={artwork.artistName}
-                        />
-
+                                    <Link
+                                        href="/subscription"
+                                        className="block text-center text-sm underline"
+                                    >
+                                        Upgrade Your Plan
+                                    </Link>
+                                </div>
+                            ) : (
+                                <CheckoutButton
+                                    artName={artwork.artName}
+                                    price={artwork.price}
+                                    buyerId={user.id}
+                                    buyerEmail={user.email}
+                                    artworkId={artwork._id}
+                                    artistId={artwork.artistId}
+                                    artistName={artwork.artistName}
+                                />
+                            )
+                        }
                         <div className="grid grid-cols-2 gap-4">
                             <button className="border border-zinc-200 dark:border-zinc-800 py-3 text-xs uppercase tracking-[0.15em] flex justify-center items-center gap-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-all">
                                 <Heart size={16} /> Wishlist

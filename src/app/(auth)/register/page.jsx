@@ -41,6 +41,8 @@ const SignUpPage = () => {
         let imageUrl = null;
         if (imageFile) imageUrl = await uploadToImgBB(imageFile);
 
+        const plan = role === 'user' ? 'free_user' : 'artist'
+
         const userData = {
             name: formData.get("fullName"),
             email: formData.get("email"),
@@ -53,6 +55,7 @@ const SignUpPage = () => {
             const { data, error } = await authClient.signUp.email({
                 ...userData,
                 role,
+                plan
             });
             if (data?.user?.role === 'user') {
                 redirect('/')

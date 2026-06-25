@@ -1,34 +1,10 @@
 'use client'
 
 import { postComments } from "@/lib/action/PostComments";
+import Link from "next/link";
 
-// const reviewsData = [
-//     {
-//         id: 1,
-//         name: "Marcus Aurel",
-//         time: "2D ago",
-//         comment:
-//             "The depth in this piece is truly remarkable. The way the light hits the horizon feels almost tangible. It looks even better in person."
-//     },
-//     {
-//         id: 2,
-//         name: "Elena Vance",
-//         time: "1W ago",
-//         comment:
-//             "A perfect addition to my digital collection. Thorne's mastery of atmosphere is unparalleled in the current digital art scene."
-//     },
-//     {
-//         id: 3,
-//         name: "Samuel Chen",
-//         time: "2W ago",
-//         comment:
-//             "The minimalist approach here is what makes it so powerful. It brings a sense of calm to my workspace every time I look at it."
-//     }
-// ];
 
 const Comments = ({ user, artWorkId, commentsByArtWork }) => {
-    // console.log(commentsByArtWork)
-
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -105,12 +81,23 @@ const Comments = ({ user, artWorkId, commentsByArtWork }) => {
                             className="w-full bg-transparent border-0 border-b border-zinc-300/50 dark:border-zinc-700/40 focus:border-zinc-700 dark:focus:border-zinc-300 focus:ring-0 outline-none py-4 resize-none text-base placeholder:text-zinc-400 transition-all duration-300"
                         />
 
-                        <button
-                            type="submit"
-                            className="bg-foreground text-background px-16 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:opacity-90 transition-all"
-                        >
-                            Post Comment
-                        </button>
+                        {
+                            user ? (
+                                <button
+                                    type="submit"
+                                    className="bg-foreground text-background px-16 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:opacity-90 transition-all"
+                                >
+                                    Post Comment
+                                </button>
+                            ) : (
+                                <Link
+                                    href="/login"
+                                    className="w-full py-4 bg-black text-white dark:bg-white dark:text-black text-xs font-bold uppercase tracking-[0.25em] flex items-center justify-center"
+                                >
+                                    Login To Comment
+                                </Link>
+                            )
+                        }
                     </div>
                 </form>
 
