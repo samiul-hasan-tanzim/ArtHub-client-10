@@ -95,14 +95,27 @@ const ArtworkHero = async ({ artwork, user, orders, plans }) => {
                         </button> */}
                         {
                             !user ? (
+
                                 <Link
                                     href="/login"
                                     className="w-full py-4 bg-black text-white dark:bg-white dark:text-black text-xs font-bold uppercase tracking-[0.25em] flex items-center justify-center"
                                 >
                                     Login To Purchase
                                 </Link>
+
+                            ) : user?.role !== "user" ? (
+
+                                <button
+                                    disabled
+                                    className="w-full py-4 bg-zinc-300 dark:bg-zinc-700 cursor-not-allowed text-xs font-bold uppercase tracking-[0.15em]"
+                                >
+                                    Back To User Account To Purchase
+                                </button>
+
                             ) : plans?.maxBuy !== -1 && orders?.length >= plans?.maxBuy ? (
+
                                 <div className="space-y-3">
+
                                     <button
                                         disabled
                                         className="w-full py-4 bg-zinc-300 dark:bg-zinc-700 cursor-not-allowed text-xs font-bold uppercase tracking-[0.25em]"
@@ -120,8 +133,11 @@ const ArtworkHero = async ({ artwork, user, orders, plans }) => {
                                     >
                                         Upgrade Your Plan
                                     </Link>
+
                                 </div>
+
                             ) : (
+
                                 <CheckoutButton
                                     artName={artwork.artName}
                                     price={artwork.price}
@@ -131,6 +147,7 @@ const ArtworkHero = async ({ artwork, user, orders, plans }) => {
                                     artistId={artwork.artistId}
                                     artistName={artwork.artistName}
                                 />
+
                             )
                         }
                         <div className="grid grid-cols-2 gap-4">

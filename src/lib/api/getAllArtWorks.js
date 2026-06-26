@@ -27,11 +27,14 @@ export const getAllArtWorks = async ({ search = "", category = "", sort = "", pa
 
 
 export const getArtworkById = async (id) => {
-    const res = await fetch(`${baseUrl}/api/artwork/${id}`, {
-        cache: "no-store"
-    });
-    const text = await res.text();
-    return JSON.parse(text);
+    const res = await fetch(
+        `${baseUrl}/api/artwork/${id}`,
+        {
+            cache: "no-store"
+        }
+    );
+
+    return await res.json();
 };
 
 

@@ -10,7 +10,6 @@ import { getUserSession } from "@/lib/core/session";
 const DetailsPage = async ({ params }) => {
     const { id } = await params
     const user = await getUserSession()
-    // console.log(user)
 
     const artwork = await getArtByArtId(id)
     // console.log(artwork)
@@ -18,7 +17,7 @@ const DetailsPage = async ({ params }) => {
 
     const orders = await getOrdersByBuyer(user?.id)
 
-    const plans = await getSubscriptionPlansById(user?.plan || 'free_user')
+    const plans = user?.role === "user" ? await getSubscriptionPlansById(user?.plan || "free_user") : null;
 
     return (
         <div>

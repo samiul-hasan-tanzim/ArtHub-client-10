@@ -8,6 +8,7 @@ import { playfair } from "@/lib/fonts";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 const SignUpPage = () => {
     const [preview, setPreview] = useState(null);
@@ -57,6 +58,9 @@ const SignUpPage = () => {
                 role,
                 plan
             });
+            if (error) {
+                return toast.error(error?.message)
+            }
             if (data?.user?.role === 'user') {
                 redirect('/')
             }

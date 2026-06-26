@@ -4,3 +4,5 @@ export const getArtByArtId = async (artId) => {
     const res = await fetch(`${baseUrl}/api/artwork/${artId}`)
     return await res.json()
 }
+
+
