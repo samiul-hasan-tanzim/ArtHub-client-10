@@ -11,7 +11,8 @@ import {
 
 const AnalyticsPage = async () => {
     const users = await getAllUsers();
-    const artworks = await getAllArtWorks();
+    const data = await getAllArtWorks();
+    const artworks = data.artworks;
     const orders = await getAllOrders();
 
     /* ---------- calculations ---------- */

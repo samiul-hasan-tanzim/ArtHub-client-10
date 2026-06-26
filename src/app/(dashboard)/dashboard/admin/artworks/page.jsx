@@ -2,7 +2,8 @@ import AdminArtworksTable from "@/components/dashboard/admin/AdminArtworksTable"
 import { getAllArtWorks } from "@/lib/api/getAllArtWorks";
 
 const AdminArtworksPage = async () => {
-    const artworks = await getAllArtWorks();
+    const data = await getAllArtWorks();
+    const artworks = data.artworks;
 
     return (
         <section className="space-y-8">
