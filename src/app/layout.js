@@ -1,6 +1,7 @@
 import { inter } from "@/lib/fonts";
 import "./globals.css";
 import Providers from "./providers";
+import { Toaster } from "react-hot-toast";
 
 
 export const metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
       <body className={`${inter.className} min-h-full flex flex-col`}>
         <Providers>
           {children}
+          <Toaster />
         </Providers>
       </body>
     </html>

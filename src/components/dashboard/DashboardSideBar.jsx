@@ -13,7 +13,6 @@ const DashboardSideBar = async () => {
         { icon: LayoutDashboard, href: "/dashboard/user", label: "Overview" },
         { icon: ShoppingBag, href: "/dashboard/user/purchases", label: "Purchase History" },
         { icon: Palette, href: "/dashboard/user/artworks", label: "Bought Artworks" },
-        { icon: CreditCard, href: "/dashboard/user/subscription", label: "Subscription" },
         { icon: Person, href: "/dashboard/user/profile", label: "Profile" }
     ];
 
