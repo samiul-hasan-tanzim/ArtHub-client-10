@@ -1,53 +1,150 @@
+"use client";
+import { useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SearchAndFilter = () => {
-    const categories = ["All Media", "Oil Painting", "Sculpture", "Digital Art", "Photography"];
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const handleReset = () => {
+        router.push("/artworks");
+    };
+
+    const categories = [
+        "Abstract",
+        "Portrait",
+        "Digital Art",
+        "Nature",
+        "Conceptual",
+        "Oil Painting"
+    ];
+
+    const currentSearch = searchParams.get("search") || "";
+    const currentCategory = searchParams.get("category") || "";
+    const currentSort = searchParams.get("sort") || "";
+    const [searchText, setSearchText] = useState(currentSearch);
+
+    const updateURL = (key, value) => {
+        const params = new URLSearchParams(searchParams);
+
+        if (value) {
+            params.set(key, value);
+        } else {
+            params.delete(key);
+        }
+
+        params.set("page", 1);
+
+        router.push(`/artworks?${params.toString()}`);
+    };
 
     return (
         <section className="mb-16">
+
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-zinc-200 dark:border-zinc-800">
 
+                {/* Search */}
+
                 <div className="relative flex items-center">
-                    <Search size={18} className="absolute left-4 text-zinc-400" />
+                    <button
+                        onClick={() => updateURL("search", searchText)}
+                        className="absolute left-4 cursor-pointer text-zinc-400  hover:text-black dark:hover:text-white transition-colors"
+                    >
+                        <Search size={16} />
+                    </button>
+
                     <input
                         type="text"
+                        value={searchText}
                         placeholder="Search collection..."
-                        className="w-64 rounded-full bg-zinc-100 dark:bg-zinc-900 py-2 pl-11 pr-5 text-sm font-medium outline-none focus:ring-1 focus:ring-black dark:focus:ring-white placeholder:text-zinc-400"
+                        onChange={(e) => setSearchText(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                updateURL("search", searchText);
+                            }
+                        }}
+                        className="w-64 rounded-full bg-zinc-100 dark:bg-zinc-900 py-2 pl-11 pr-12 text-sm font-medium outline-none focus:ring-1 focus:ring-black dark:focus:ring-white placeholder:text-zinc-400"
                     />
                 </div>
 
+                {/* Category buttons */}
+
                 <div className="flex flex-wrap gap-2">
-                    {categories.map((category, i) => (
-                        <button
-                            key={i}
-                            className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${i === 0
+
+                    <button
+                        onClick={() => updateURL("category", "")}
+                        className={`px-5 py-2 rounded-full text-sm font-medium transition-all 
+                            
+                            ${!currentCategory
                                 ? "bg-black text-white dark:bg-white dark:text-black"
                                 : "bg-zinc-100 dark:bg-zinc-900 text-zinc-500 hover:text-black dark:hover:text-white"
+                            }`}
+                    >
+                        All Media
+                    </button>
+
+                    {categories.map((category) => (
+
+                        <button
+                            key={category}
+                            onClick={() => updateURL("category", category)}
+                            className={`px-5 py-2 rounded-full text-sm font-medium transition-all
+                                
+                                ${currentCategory === category
+                                    ? "bg-black text-white dark:bg-white dark:text-black"
+                                    : "bg-zinc-100 dark:bg-zinc-900 text-zinc-500 hover:text-black dark:hover:text-white"
                                 }`}
                         >
                             {category}
                         </button>
+
                     ))}
+
                 </div>
 
-                <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2 pr-4 border-r border-zinc-200 dark:border-zinc-800 text-sm">
-                        <span className="text-zinc-500">Sort:</span>
+                {/* Sort */}
 
-                        <select className="bg-transparent font-semibold outline-none cursor-pointer">
-                            <option>Newest</option>
-                            <option>Price: Low</option>
-                            <option>Price: High</option>
+                <div className="flex items-center gap-4">
+
+                    <div className="flex items-center gap-2 pr-4 border-r border-zinc-200 dark:border-zinc-800 text-sm">
+
+                        <span className="text-zinc-500">
+                            Sort:
+                        </span>
+
+                        <select
+                            value={currentSort}
+                            onChange={(e) =>
+                                updateURL("sort", e.target.value)
+                            }
+                            className="bg-transparent font-semibold outline-none cursor-pointer"
+                        >
+                            <option value="">
+                                Newest
+                            </option>
+
+                            <option value="low">
+                                Price: Low
+                            </option>
+
+                            <option value="high">
+                                Price: High
+                            </option>
+
                         </select>
+
                     </div>
 
-                    <button className="flex items-center gap-2 text-xs font-bold tracking-[0.18em] uppercase">
+                    <button onClick={handleReset} className="flex items-center gap-2 text-xs font-bold tracking-[0.18em] uppercase">
                         <SlidersHorizontal size={16} />
-                        Filters
+                        Reset Filters
                     </button>
+
                 </div>
 
             </div>
+
         </section>
     );
 };

@@ -2,11 +2,22 @@ import Results from "@/components/artworks/Results";
 import SearchAndFilter from "@/components/artworks/Search&Filter";
 import { playfair } from "@/lib/fonts";
 
-const AllArtWorks = () => {
+const AllArtWorks = async ({ searchParams }) => {
+
+    const params = await searchParams;
+
+    const search = params?.search || "";
+    const category = params?.category || "";
+    const sort = params?.sort || "";
+    const page = Number(params?.page) || 1;
+
     return (
         <section className="w-10/12 mx-auto pt-14 md:pt-20 pb-20">
+
             <header className="mb-12 lg:mb-16">
-                <h1 className={`${playfair.className} text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none`}>
+                <h1
+                    className={`${playfair.className} text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none`}
+                >
                     Gallery Collection
                 </h1>
 
@@ -15,11 +26,15 @@ const AllArtWorks = () => {
                 </p>
             </header>
 
-            {/* Search + Filters */}
             <SearchAndFilter />
-            {/* Artworks Grid */}
-            <Results />
-            {/* Pagination */}
+
+            <Results
+                search={search}
+                category={category}
+                sort={sort}
+                page={page}
+            />
+
         </section>
     );
 };

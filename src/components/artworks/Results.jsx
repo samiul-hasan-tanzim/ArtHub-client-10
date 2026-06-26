@@ -3,8 +3,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { getAllArtWorks } from "@/lib/api/getAllArtWorks";
 
-const Results = async () => {
-    const artworks = await getAllArtWorks()
+const Results = async ({ search, category, sort, page }) => {
+    const data = await getAllArtWorks({ status: "published", search, category, sort, page })
+    const artworks = data.artworks;
+    const totalPages = data.totalPages;
+    const currentPage = Number(page) || 1;
 
     return (
         <div>
@@ -60,19 +63,43 @@ const Results = async () => {
             </div>
 
             <nav className="flex items-center justify-center gap-4 mt-20">
-                <button className="w-12 h-12 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all">
+                {/* Previous */}
+                <Link
+                    href={`/artworks?page=${currentPage - 1}&search=${search || ""}&category=${category || ""}&sort=${sort || ""}`}
+                    className={`w-12 h-12 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center transition-all ${currentPage === 1
+                        ? "pointer-events-none opacity-40"
+                        : "hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                        }`}
+                >
                     <ChevronLeft size={18} />
-                </button>
+                </Link>
 
+                {/* Pages */}
                 <div className="flex gap-2">
-                    <button className="w-12 h-12 rounded-full bg-black text-white dark:bg-white dark:text-black font-bold">1</button>
-                    <button className="w-12 h-12 rounded-full border border-zinc-300 dark:border-zinc-700 font-medium">2</button>
-                    <button className="w-12 h-12 rounded-full border border-zinc-300 dark:border-zinc-700 font-medium">3</button>
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                        <Link
+                            key={pageNum}
+                            href={`/artworks?page=${pageNum}&search=${search || ""}&category=${category || ""}&sort=${sort || ""}`}
+                            className={`w-12 h-12 rounded-full flex items-center justify-center font-medium ${currentPage === pageNum
+                                ? "bg-black text-white dark:bg-white dark:text-black"
+                                : "border border-zinc-300 dark:border-zinc-700 hover:bg-black/50 hover:text-white dark:hover:bg-white/50 "
+                                }`}
+                        >
+                            {pageNum}
+                        </Link>
+                    ))}
                 </div>
 
-                <button className="w-12 h-12 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all">
+                {/* Next */}
+                <Link
+                    href={`/artworks?page=${currentPage + 1}&search=${search || ""}&category=${category || ""}&sort=${sort || ""}`}
+                    className={`w-12 h-12 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center transition-all ${currentPage === totalPages
+                        ? "pointer-events-none opacity-40"
+                        : "hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                        }`}
+                >
                     <ChevronRight size={18} />
-                </button>
+                </Link>
             </nav>
         </div>
     );
