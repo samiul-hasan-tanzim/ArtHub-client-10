@@ -66,7 +66,7 @@ const ArtworksPage = async () => {
                                 </div>
 
                                 <span
-                                    className={`text-xs px-3 py-1 rounded-full ${art.status === "approved"
+                                    className={`text-xs px-3 py-1 rounded-full ${art.status === "published"
                                         ? "bg-green-100 text-green-700"
                                         : "bg-yellow-100 text-yellow-700"
                                         }`}

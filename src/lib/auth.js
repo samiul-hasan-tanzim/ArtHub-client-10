@@ -32,5 +32,5 @@ export const auth = betterAuth({
                 default: 'free_user'
             }
         }
-    }
+    },
 });
