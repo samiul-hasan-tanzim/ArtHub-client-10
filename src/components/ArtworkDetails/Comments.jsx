@@ -1,10 +1,17 @@
 'use client'
 
 import { postComments } from "@/lib/action/PostComments";
+import { deleteComment } from "@/lib/api/deleteComment";
+import { updateComment } from "@/lib/api/updateComment";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 
-const Comments = ({ user, artWorkId, commentsByArtWork }) => {
+const Comments = ({ user, artWorkId, commentsByArtWork, hasPurchased }) => {
+    const router = useRouter()
+    const [editingId, setEditingId] = useState(null);
+    const [editText, setEditText] = useState("");
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -17,12 +24,28 @@ const Comments = ({ user, artWorkId, commentsByArtWork }) => {
             artWorkId,
             user: user?.name
         }
-        console.log(commentData)
+
         const res = await postComments(commentData)
-        console.log(res);
-        // if (res.acknowledged) {
-        //     window.location.href = `/artworks/${artWorkId}`;
-        // }
+        if (res.acknowledged) {
+            router.refresh()
+        }
+    };
+
+    const handleDelete = async (id) => {
+        const res = await deleteComment(id)
+
+        if (res.deletedCount > 0) {
+            router.refresh()
+        }
+    };
+
+    const handleUpdate = async (id) => {
+        const res = await updateComment(id, editText);
+
+        if (res.modifiedCount > 0) {
+            setEditingId(null);
+            window.location.reload();
+        }
     };
 
 
@@ -51,18 +74,83 @@ const Comments = ({ user, artWorkId, commentsByArtWork }) => {
                             className="bg-zinc-100/70 dark:bg-zinc-900/40 border border-zinc-200/40 dark:border-zinc-800/40 p-10 flex flex-col gap-6 hover:bg-white dark:hover:bg-zinc-900 transition-all duration-300"
                         >
                             <div className="flex justify-between items-center">
+
                                 <span className="text-sm font-bold">
                                     {review.user}
                                 </span>
 
-                                <span className="text-xs uppercase tracking-widest text-zinc-400">
-                                    {new Date(review.createdAt).toLocaleDateString("en-GB")}
-                                </span>
+                                <div className="flex items-center gap-3">
+
+                                    <span className="text-xs uppercase tracking-widest text-zinc-400">
+                                        {new Date(review.createdAt).toLocaleDateString("en-GB")}
+                                    </span>
+
+                                    {user?.id === review.userId && (
+                                        <div className="flex gap-2">
+
+                                            <button
+                                                onClick={() => {
+                                                    setEditingId(review._id);
+                                                    setEditText(review.comment);
+                                                }}
+                                                className="text-xs text-blue-500 hover:underline"
+                                            >
+                                                Edit
+                                            </button>
+
+                                            <button
+                                                onClick={() => handleDelete(review._id)}
+                                                className="text-xs text-red-500 hover:underline"
+                                            >
+                                                Delete
+                                            </button>
+
+                                        </div>
+                                    )}
+
+                                </div>
                             </div>
 
-                            <p className="text-sm md:text-base leading-8 text-zinc-500 dark:text-zinc-400">
-                                {review.comment}
-                            </p>
+                            {
+                                editingId === review._id ? (
+
+                                    <div className="space-y-3">
+
+                                        <textarea
+                                            value={editText}
+                                            onChange={(e) => setEditText(e.target.value)}
+                                            rows={3}
+                                            className="w-full border p-2 bg-transparent"
+                                        />
+
+                                        <div className="flex gap-3">
+
+                                            <button
+                                                onClick={() => handleUpdate(review._id)}
+                                                className="text-sm text-green-500"
+                                            >
+                                                Save
+                                            </button>
+
+                                            <button
+                                                onClick={() => setEditingId(null)}
+                                                className="text-sm text-zinc-500"
+                                            >
+                                                Cancel
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                ) : (
+
+                                    <p className="text-sm md:text-base leading-8 text-zinc-500 dark:text-zinc-400">
+                                        {review.comment}
+                                    </p>
+
+                                )
+                            }
                         </div>
                     ))}
                 </div>
@@ -82,20 +170,42 @@ const Comments = ({ user, artWorkId, commentsByArtWork }) => {
                         />
 
                         {
-                            user ? (
-                                <button
-                                    type="submit"
-                                    className="bg-foreground text-background px-16 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:opacity-90 transition-all"
-                                >
-                                    Post Comment
-                                </button>
-                            ) : (
+                            !user ? (
+
                                 <Link
                                     href="/login"
                                     className="w-full py-4 bg-black text-white dark:bg-white dark:text-black text-xs font-bold uppercase tracking-[0.25em] flex items-center justify-center"
                                 >
                                     Login To Comment
                                 </Link>
+
+                            ) : user.role !== "user" ? (
+
+                                <button
+                                    disabled
+                                    className="w-full py-4 bg-zinc-300 dark:bg-zinc-700 cursor-not-allowed text-xs font-bold uppercase tracking-[0.25em]"
+                                >
+                                    Only Users Can Comment
+                                </button>
+
+                            ) : !hasPurchased ? (
+
+                                <button
+                                    disabled
+                                    className="w-full py-4 bg-zinc-300 dark:bg-zinc-700 cursor-not-allowed text-xs font-bold uppercase tracking-[0.25em]"
+                                >
+                                    Purchase First To Comment
+                                </button>
+
+                            ) : (
+
+                                <button
+                                    type="submit"
+                                    className="bg-foreground text-background px-16 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:opacity-90 transition-all"
+                                >
+                                    Post Comment
+                                </button>
+
                             )
                         }
                     </div>

@@ -16,6 +16,9 @@ const DetailsPage = async ({ params }) => {
     const commentsByArtWork = await getCommentsByArtWorkId(artwork?._id)
 
     const orders = await getOrdersByBuyer(user?.id)
+    const hasPurchased = orders?.some(
+        order => order.artworkId === artwork?._id
+    );
 
     const plans = user?.role === "user" ? await getSubscriptionPlansById(user?.plan || "free_user") : null;
 
@@ -23,7 +26,7 @@ const DetailsPage = async ({ params }) => {
         <div>
             <ArtworkHero orders={orders} plans={plans} user={user} artwork={artwork} />
             <ArtistSection artistData={artwork} />
-            <Comments user={user} artWorkId={artwork?._id} commentsByArtWork={commentsByArtWork} />
+            <Comments user={user} artWorkId={artwork?._id} commentsByArtWork={commentsByArtWork} hasPurchased={hasPurchased} />
         </div>
     );
 };
