@@ -34,3 +34,13 @@ export const deleteOrder = async (id) => {
 
     return await res.json();
 };
+
+
+
+export const getAllOrders = async () => {
+    const res = await fetch(`${baseUrl}/orders`, {
+        cache: "no-store"
+    });
+
+    return await res.json();
+};
