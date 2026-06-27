@@ -12,7 +12,10 @@ const DetailsPage = async ({ params }) => {
     const { id } = await params
     const user = await getUserSession()
 
-    const updatedUser = await getUserById(user?.id)
+    let updatedUser = null;
+    if (user) {
+        updatedUser = await getUserById(user.id);
+    }
 
 
     const artwork = await getArtByArtId(id)
