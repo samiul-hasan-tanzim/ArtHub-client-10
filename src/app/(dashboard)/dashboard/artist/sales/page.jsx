@@ -1,6 +1,5 @@
 import SalesHistoryTable from "@/components/dashboard/artist/SalesHistoryTable";
 import { getSalesByArtist } from "@/lib/api/orders/getSalesByArtist";
-// import { getSalesByArtist } from "@/lib/api/orders";
 import { getUserSession } from "@/lib/core/session";
 
 

@@ -5,25 +5,25 @@ import Link from "next/link";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { deleteOrder } from "@/lib/api/orders/deleteOrder";
+// import { deleteOrder } from "@/lib/api/orders/deleteOrder";
 
 const BoughtArtworks = ({ artworks }) => {
     const router = useRouter();
 
-    const handleDelete = async (orderId) => {
-        const confirmDelete = confirm(
-            "Remove this purchase history?"
-        );
+    // const handleDelete = async (orderId) => {
+    //     const confirmDelete = confirm(
+    //         "Remove this purchase history?"
+    //     );
 
-        if (!confirmDelete) return;
+    //     if (!confirmDelete) return;
 
-        const result = await deleteOrder(orderId);
+    //     const result = await deleteOrder(orderId);
 
-        if (result.deletedCount > 0) {
-            toast.success("Removed successfully");
-            router.refresh();
-        }
-    };
+    //     if (result.deletedCount > 0) {
+    //         toast.success("Removed successfully");
+    //         router.refresh();
+    //     }
+    // };
 
     if (artworks.length === 0) {
         return (
@@ -75,14 +75,14 @@ const BoughtArtworks = ({ artworks }) => {
                                 View Details
                             </Link>
 
-                            <button
+                            {/* <button
                                 onClick={() =>
                                     handleDelete(art.orderId)
                                 }
                                 className="px-4 py-2 border text-red-500"
                             >
                                 <Trash2 size={16} />
-                            </button>
+                            </button> */}
 
                         </div>
 

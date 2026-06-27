@@ -1,10 +1,10 @@
-const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL
+// const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL
 
 
-export const deleteOrder = async (id) => {
-    const res = await fetch(`${baseUrl}/orders/${id}`, {
-        method: "DELETE"
-    });
+// export const deleteOrder = async (id) => {
+//     const res = await fetch(`${baseUrl}/orders/${id}`, {
+//         method: "DELETE"
+//     });
 
-    return await res.json();
-};
+//     return await res.json();
+// };

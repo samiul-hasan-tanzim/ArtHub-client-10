@@ -5,7 +5,8 @@ import { playfair } from "@/lib/fonts";
 import CheckoutButton from "./CheckoutButton";
 
 const ArtworkHero = async ({ artwork, user, orders, plans }) => {
-    // console.log('plan', plans)
+    // console.log(orders)
+    // console.log(user)
 
     return (
         <section className="pt-10 lg:pt-14 pb-16">
@@ -112,6 +113,13 @@ const ArtworkHero = async ({ artwork, user, orders, plans }) => {
                                     Back To User Account To Purchase
                                 </button>
 
+                            ) : artwork?.sold ? (
+                                <button
+                                    disabled
+                                    className="w-full py-4 bg-zinc-300 cursor-not-allowed"
+                                >
+                                    Already Sold
+                                </button>
                             ) : plans?.maxBuy !== -1 && orders?.length >= plans?.maxBuy ? (
 
                                 <div className="space-y-3">

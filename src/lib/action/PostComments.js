@@ -1,4 +1,4 @@
-import { serverMutation } from "../core/server"
+import { serverMutation } from "../core/mutation/clientMutation"
 
 
 export const postComments = async (commentsData) => {

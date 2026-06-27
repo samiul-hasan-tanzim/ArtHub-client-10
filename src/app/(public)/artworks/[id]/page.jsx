@@ -3,25 +3,32 @@ import ArtworkHero from "@/components/ArtworkDetails/ArtworkHero";
 import Comments from "@/components/ArtworkDetails/Comments";
 import { getArtByArtId } from "@/lib/api/getArtByArtId";
 import { getCommentsByArtWorkId } from "@/lib/api/getCommentsByArtWorkId";
-// import { getOrdersByBuyer } from "@/lib/api/orders";
 import { getSubscriptionPlansById } from "@/lib/action/subscriptionPlans";
 import { getUserSession } from "@/lib/core/session";
 import { getOrdersByBuyer } from "@/lib/api/orders/getOrdersByBuyer";
+import { getUserById } from "@/lib/api/users/getUserById";
 
 const DetailsPage = async ({ params }) => {
     const { id } = await params
     const user = await getUserSession()
 
+    const updatedUser = await getUserById(user?.id)
+
+
     const artwork = await getArtByArtId(id)
-    // console.log(artwork)
     const commentsByArtWork = await getCommentsByArtWorkId(artwork?._id)
 
-    const orders = await getOrdersByBuyer(user?.id)
-    const hasPurchased = orders?.some(
-        order => order.artworkId === artwork?._id
-    );
+    let orders = [];
+    let hasPurchased = false;
+    if (user) {
+        orders = await getOrdersByBuyer(user.id);
 
-    const plans = user?.role === "user" ? await getSubscriptionPlansById(user?.plan || "free_user") : null;
+        hasPurchased = orders?.some(
+            order => order.artworkId === artwork?._id
+        );
+    }
+
+    const plans = user?.role === "user" ? await getSubscriptionPlansById(updatedUser?.plan || "free_user") : null;
 
     return (
         <div>

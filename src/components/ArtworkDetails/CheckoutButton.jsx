@@ -1,34 +1,15 @@
 "use client";
 
+import { createCheckoutSession } from "@/lib/payment/createCheckoutSession";
+
 const CheckoutButton = ({ artName, price, buyerId, buyerEmail, artworkId, artistId, artistName }) => {
 
     const handleCheckout = async () => {
 
         try {
-            const res = await fetch(
-                `${process.env.NEXT_PUBLIC_SERVER_URL}/create-checkout-session`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+            const data = await createCheckoutSession({ artName, price, buyerId, buyerEmail, artworkId, artistId, artistName });
 
-                    body: JSON.stringify({
-                        artName,
-                        price,
-
-                        buyerId,
-                        buyerEmail,
-
-                        artworkId,
-
-                        artistId,
-                        artistName
-                    })
-                }
-            );
-
-            const data = await res.json();
+            // const data = await res.json();
 
             if (data?.url) {
                 window.location.href = data.url;

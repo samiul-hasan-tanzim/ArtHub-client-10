@@ -19,6 +19,9 @@ export default async function Success({ searchParams }) {
         expand: ["line_items", "payment_intent"]
     });
 
+
+    console.log(metadata)
+
     if (status === "open") {
         return redirect("/");
     }
@@ -76,14 +79,6 @@ export default async function Success({ searchParams }) {
                         >
                             Continue Exploring
                         </Link>
-
-                        <Link
-                            href="/dashboard/my-orders"
-                            className="px-6 py-3 border border-zinc-300 dark:border-zinc-700 uppercase text-xs tracking-[0.2em]"
-                        >
-                            View Orders
-                        </Link>
-
                     </div>
 
                 </div>

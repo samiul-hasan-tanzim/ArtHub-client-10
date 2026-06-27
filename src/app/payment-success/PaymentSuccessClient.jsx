@@ -1,5 +1,6 @@
 "use client";
 
+import { createOrder } from "@/lib/api/orders/createOrder";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
@@ -17,30 +18,18 @@ const PaymentSuccessClient = () => {
 
             const data = await res.json();
 
-            await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/orders`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    stripeSessionId: data.id,
-
-                    buyerId: data.metadata.buyerId,
-                    buyerEmail: data.metadata.buyerEmail,
-
-                    artworkId: data.metadata.artworkId,
-                    artworkName: data.metadata.artworkName,
-
-                    artistId: data.metadata.artistId,
-                    artistName: data.metadata.artistName,
-
-                    price: Number(data.metadata.price),
-
-                    paymentStatus: data.payment_status,
-
-                    createdAt: new Date().toISOString()
-                })
-            });
+            await createOrder({
+                stripeSessionId: data.id,
+                buyerId: data.metadata.buyerId,
+                buyerEmail: data.metadata.buyerEmail,
+                artworkId: data.metadata.artworkId,
+                artworkName: data.metadata.artworkName,
+                artistId: data.metadata.artistId,
+                artistName: data.metadata.artistName,
+                price: Number(data.metadata.price),
+                paymentStatus: data.payment_status,
+                createdAt: new Date().toISOString()
+            })
         };
 
         if (sessionId) {
