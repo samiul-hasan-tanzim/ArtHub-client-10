@@ -42,11 +42,11 @@ const SearchAndFilter = () => {
     return (
         <section className="mb-16">
 
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-zinc-200 dark:border-zinc-800">
+            <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 pb-6 border-b border-zinc-200 dark:border-zinc-800">
 
                 {/* Search */}
 
-                <div className="relative flex items-center">
+                <div className="relative flex items-center w-full sm:w-72 shrink-0">
                     <button
                         onClick={() => updateURL("search", searchText)}
                         className="absolute left-4 cursor-pointer text-zinc-400  hover:text-black dark:hover:text-white transition-colors"
@@ -64,13 +64,13 @@ const SearchAndFilter = () => {
                                 updateURL("search", searchText);
                             }
                         }}
-                        className="w-64 rounded-full bg-zinc-100 dark:bg-zinc-900 py-2 pl-11 pr-12 text-sm font-medium outline-none focus:ring-1 focus:ring-black dark:focus:ring-white placeholder:text-zinc-400"
+                        className="w-full rounded-full bg-zinc-100 dark:bg-zinc-900 py-2 pl-11 pr-12 text-sm font-medium outline-none focus:ring-1 focus:ring-black dark:focus:ring-white placeholder:text-zinc-400"
                     />
                 </div>
 
                 {/* Category buttons */}
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap justify-start xl:justify-center gap-2 flex-1">
 
                     <button
                         onClick={() => updateURL("category", "")}
@@ -105,7 +105,7 @@ const SearchAndFilter = () => {
 
                 {/* Sort */}
 
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 shrink-0">
 
                     <div className="flex items-center gap-2 pr-4 border-r border-zinc-200 dark:border-zinc-800 text-sm">
 
@@ -118,17 +118,17 @@ const SearchAndFilter = () => {
                             onChange={(e) =>
                                 updateURL("sort", e.target.value)
                             }
-                            className="bg-transparent font-semibold outline-none cursor-pointer"
+                            className="bg-white dark:bg-zinc-900 text-black dark:text-white font-semibold outline-none cursor-pointer rounded px-1"
                         >
-                            <option value="">
+                            <option value="" className="bg-white text-black dark:bg-zinc-900 dark:text-white">
                                 Newest
                             </option>
 
-                            <option value="low">
+                            <option value="low" className="bg-white text-black dark:bg-zinc-900 dark:text-white">
                                 Price: Low
                             </option>
 
-                            <option value="high">
+                            <option value="high" className="bg-white text-black dark:bg-zinc-900 dark:text-white">
                                 Price: High
                             </option>
 
@@ -136,7 +136,7 @@ const SearchAndFilter = () => {
 
                     </div>
 
-                    <button onClick={handleReset} className="flex items-center gap-2 text-xs font-bold tracking-[0.18em] uppercase">
+                    <button onClick={handleReset} className="flex items-center gap-2 text-xs font-bold tracking-[0.18em] uppercase whitespace-nowrap">
                         <SlidersHorizontal size={16} />
                         Reset Filters
                     </button>

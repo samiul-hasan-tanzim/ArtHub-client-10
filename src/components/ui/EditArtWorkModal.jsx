@@ -5,10 +5,29 @@ import Image from "next/image";
 import { Button, Input, Label, Modal, Surface, TextField, TextArea } from "@heroui/react";
 import { Pencil, UploadCloud } from "lucide-react";
 import { patchArtWork } from "@/lib/action/ArtWorkPatch";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const EditArtWorkModal = ({ art }) => {
+    const router = useRouter()
     const [preview, setPreview] = useState(art?.image);
     const [imageFile, setImageFile] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    const [formData, setFormData] = useState({
+        artName: art?.artName || "",
+        price: art?.price || "",
+        category: art?.category || "",
+        description: art?.description || "",
+        artistBio: art?.artistBio || ""
+    });
+
+    const handleChange = e => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
 
     const handleImageChange = e => {
         const file = e.target.files?.[0];
@@ -28,34 +47,40 @@ const EditArtWorkModal = ({ art }) => {
                 body: formData
             }
         );
+
         const data = await res.json();
         return data?.data?.url;
     };
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const formData = new FormData(e.currentTarget);
+        setLoading(true);
 
         let imageUrl = art?.image;
+
         if (imageFile) {
             imageUrl = await uploadToImgBB(imageFile);
         }
 
         const updatedData = {
-            artName: formData.get("artName"),
-            price: Number(formData.get("price")),
-            category: formData.get("category"),
-            description: formData.get("description"),
-            artistBio: formData.get("artistBio"),
+            ...formData,
+            price: Number(formData.price),
             image: imageUrl
         };
-        const res = await patchArtWork(art._id, updatedData)
+
+        const res = await patchArtWork(art._id, updatedData);
+
+        if (res) {
+            toast.success("Artwork updated successfully");
+        }
+
+        setLoading(false);
+        router.refresh()
     };
 
     return (
         <Modal>
 
-            {/* Open Button */}
             <Button variant="bordered" className="flex-1">
                 <Pencil size={16} />
                 Edit
@@ -84,21 +109,29 @@ const EditArtWorkModal = ({ art }) => {
 
                                     <TextField name="artName">
                                         <Label>Artwork Name</Label>
-                                        <Input defaultValue={art?.artName} />
+                                        <Input
+                                            name="artName"
+                                            value={formData.artName}
+                                            onChange={handleChange}
+                                        />
                                     </TextField>
 
                                     <TextField name="price">
                                         <Label>Price ($)</Label>
                                         <Input
+                                            name="price"
                                             type="number"
-                                            defaultValue={art?.price}
+                                            value={formData.price}
+                                            onChange={handleChange}
                                         />
                                     </TextField>
 
                                     <TextField name="category">
                                         <Label>Category</Label>
                                         <Input
-                                            defaultValue={art?.category}
+                                            name="category"
+                                            value={formData.category}
+                                            onChange={handleChange}
                                             placeholder="Abstract / Portrait..."
                                         />
                                     </TextField>
@@ -107,8 +140,10 @@ const EditArtWorkModal = ({ art }) => {
                                         <Label>Description</Label>
 
                                         <TextArea
+                                            name="description"
                                             rows={4}
-                                            defaultValue={art?.description}
+                                            value={formData.description}
+                                            onChange={handleChange}
                                             placeholder="Artwork description"
                                         />
                                     </TextField>
@@ -117,13 +152,14 @@ const EditArtWorkModal = ({ art }) => {
                                         <Label>Artist Bio</Label>
 
                                         <TextArea
+                                            name="artistBio"
                                             rows={3}
-                                            defaultValue={art?.artistBio}
+                                            value={formData.artistBio}
+                                            onChange={handleChange}
                                             placeholder="Short artist bio"
                                         />
                                     </TextField>
 
-                                    {/* Image Upload */}
                                     <div>
 
                                         <p className="mb-2 text-sm font-medium">
@@ -165,8 +201,12 @@ const EditArtWorkModal = ({ art }) => {
                                             Cancel
                                         </Button>
 
-                                        <Button type="submit">
-                                            Save Changes
+                                        <Button
+                                            type="submit"
+                                            slot="close"
+                                            disabled={loading}
+                                        >
+                                            {loading ? "Saving..." : "Save Changes"}
                                         </Button>
 
                                     </Modal.Footer>
