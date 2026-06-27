@@ -1,7 +1,7 @@
 import AdminAnalyticsCharts from "@/components/dashboard/admin/AdminAnalyticsCharts";
-import { getAllArtWorks } from "@/lib/api/getAllArtWorks";
-import { getAllOrders } from "@/lib/api/orders";
-import { getAllUsers } from "@/lib/api/user";
+import { getAllArtWorks } from "@/lib/api/artwork/getAllArtWorks";
+import { getAllOrders } from "@/lib/api/orders/getAllOrders";
+import { getAllUsers } from "@/lib/api/users/getAllUsers";
 import {
     Users,
     Palette,

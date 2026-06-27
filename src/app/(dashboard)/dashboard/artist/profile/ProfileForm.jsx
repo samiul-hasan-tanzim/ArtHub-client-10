@@ -4,13 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { UploadCloud } from "lucide-react";
-import { updateUser } from "@/lib/api/user";
+import { updateUser } from "@/lib/api/users/updateUser";
 
 const ProfileForm = ({ user }) => {
-    const [name, setName] = useState(user.name);
+    const [name, setName] = useState(user?.name);
     const [loading, setLoading] = useState(false);
 
-    const [preview, setPreview] = useState(user.image);
+    const [preview, setPreview] = useState(user?.image);
     const [imageFile, setImageFile] = useState(null);
 
     const handleImageChange = (e) => {

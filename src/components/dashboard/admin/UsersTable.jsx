@@ -3,7 +3,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { updateUserRole } from "@/lib/api/user";
+import { updateUserRole } from "@/lib/api/users/updateUserRole";
 
 const UsersTable = ({ users }) => {
     const router = useRouter();

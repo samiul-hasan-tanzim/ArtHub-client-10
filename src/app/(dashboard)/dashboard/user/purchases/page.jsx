@@ -1,4 +1,5 @@
-import { getOrdersByBuyer } from "@/lib/api/orders";
+// import { getOrdersByBuyer } from "@/lib/api/orders";
+import { getOrdersByBuyer } from "@/lib/api/orders/getOrdersByBuyer";
 import { getUserSession } from "@/lib/core/session";
 
 const PurchaseHistory = async () => {

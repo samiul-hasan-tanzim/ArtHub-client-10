@@ -1,5 +1,6 @@
-import { getAllOrders } from "@/lib/api/orders";
+
 import TransactionsTable from "@/components/dashboard/admin/TransactionsTable";
+import { getAllOrders } from "@/lib/api/orders/getAllOrders";
 
 const TransactionsPage = async () => {
     const orders = await getAllOrders();

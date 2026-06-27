@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
-import { deleteOrder } from "@/lib/api/orders";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { deleteOrder } from "@/lib/api/orders/deleteOrder";
 
 const BoughtArtworks = ({ artworks }) => {
     const router = useRouter();

@@ -3,9 +3,10 @@ import ArtworkHero from "@/components/ArtworkDetails/ArtworkHero";
 import Comments from "@/components/ArtworkDetails/Comments";
 import { getArtByArtId } from "@/lib/api/getArtByArtId";
 import { getCommentsByArtWorkId } from "@/lib/api/getCommentsByArtWorkId";
-import { getOrdersByBuyer } from "@/lib/api/orders";
+// import { getOrdersByBuyer } from "@/lib/api/orders";
 import { getSubscriptionPlansById } from "@/lib/action/subscriptionPlans";
 import { getUserSession } from "@/lib/core/session";
+import { getOrdersByBuyer } from "@/lib/api/orders/getOrdersByBuyer";
 
 const DetailsPage = async ({ params }) => {
     const { id } = await params

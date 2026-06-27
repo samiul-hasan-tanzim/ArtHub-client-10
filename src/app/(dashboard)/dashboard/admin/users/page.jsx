@@ -1,5 +1,5 @@
 import UsersTable from "@/components/dashboard/admin/UsersTable";
-import { getAllUsers } from "@/lib/api/user";
+import { getAllUsers } from "@/lib/api/users/getAllUsers";
 
 const ManageUsersPage = async () => {
     const users = await getAllUsers();

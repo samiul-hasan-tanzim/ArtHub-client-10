@@ -1,5 +1,5 @@
 import AdminArtworksTable from "@/components/dashboard/admin/AdminArtworksTable";
-import { getAllArtWorks } from "@/lib/api/getAllArtWorks";
+import { getAllArtWorks } from "@/lib/api/artwork/getAllArtWorks";
 
 const AdminArtworksPage = async () => {
     const data = await getAllArtWorks();

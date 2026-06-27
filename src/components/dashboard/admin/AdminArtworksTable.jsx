@@ -5,10 +5,8 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useState } from "react";
 
-import {
-    deleteArtwork,
-    updateArtworkStatus
-} from "@/lib/api/getAllArtWorks";
+import { deleteArtwork } from "@/lib/api/artwork/deleteArtwork";
+import { updateArtworkStatus } from "@/lib/api/artwork/updateArtworkStatus";
 
 const AdminArtworksTable = ({ artworks }) => {
     const router = useRouter();
@@ -37,10 +35,7 @@ const AdminArtworksTable = ({ artworks }) => {
     const handleStatusChange = async (id, status) => {
         setLoadingId(id);
 
-        const result = await updateArtworkStatus(
-            id,
-            status
-        );
+        const result = await updateArtworkStatus(id, status);
 
         setLoadingId("");
 

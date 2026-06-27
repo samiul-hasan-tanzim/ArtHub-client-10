@@ -1,7 +1,8 @@
 
 import BoughtArtworks from "@/components/dashboard/user/BoughtArtworks";
-import { getArtworkById } from "@/lib/api/getAllArtWorks";
-import { getOrdersByBuyer } from "@/lib/api/orders";
+import { getArtworkById } from "@/lib/api/artwork/getArtworkById";
+import { getOrdersByBuyer } from "@/lib/api/orders/getOrdersByBuyer";
+// import { getOrdersByBuyer } from "@/lib/api/orders";
 import { getUserSession } from "@/lib/core/session";
 
 

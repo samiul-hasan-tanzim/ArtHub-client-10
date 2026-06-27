@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { getAllArtWorks } from "@/lib/api/getAllArtWorks";
+import { getAllArtWorks } from "@/lib/api/artwork/getAllArtWorks";
 
 const Results = async ({ search, category, sort, page }) => {
     const data = await getAllArtWorks({ status: "published", search, category, sort, page })
