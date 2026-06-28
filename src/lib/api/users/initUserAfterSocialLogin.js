@@ -2,16 +2,16 @@ import { authClient } from "@/lib/auth-client";
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
-export const getUserById = async (userId) => {
+export const initUserAfterSocialLogin = async (email) => {
     const { data: tokenData } = await authClient.token()
 
     const res = await fetch(
-        `${baseUrl}/api/user/${userId}`,
+        `${baseUrl}/api/user/init/${email}`,
         {
-            cache: "no-cache",
+            method: "PATCH",
             headers: {
                 authorization: `Bearer ${tokenData?.token}`
-            }
+            },
         }
     );
 

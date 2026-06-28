@@ -16,12 +16,13 @@ import {
 
 import { Check } from "@gravity-ui/icons";
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from "lucide-react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -48,13 +49,22 @@ const LoginPage = () => {
         setLoading(false);
 
         if (data?.user?.role === 'user') {
-            redirect('/')
+            window.location.href = "/";
+
         }
         else {
-            redirect(`/dashboard/${data?.user?.role}`)
+            window.location.href = `/dashboard/${data?.user?.role}`;
         }
-        // router.push("/")
+
     };
+
+    const handelSocialAuth = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        });
+    };
+
+
 
     return (
         <section className="min-h-screen flex items-center justify-center px-4 py-20">
@@ -181,6 +191,7 @@ const LoginPage = () => {
 
                         {/* Google */}
                         <Button
+                            onClick={handelSocialAuth}
                             type="button"
                             variant="bordered"
                             className="w-full flex items-center justify-center gap-3"

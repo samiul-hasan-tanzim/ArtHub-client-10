@@ -62,10 +62,10 @@ const SignUpPage = () => {
                 return toast.error(error?.message)
             }
             if (data?.user?.role === 'user') {
-                redirect('/')
+                window.location.href = "/";
             }
             else {
-                redirect(`/dashboard/${data?.user?.role}`)
+                window.location.href = `/dashboard/${data?.user?.role}`;
             }
         }
         else {

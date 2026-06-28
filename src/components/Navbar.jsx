@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Dropdown, Avatar } from "@heroui/react";
 import Image from "next/image";
 import logo from "../asstes/logo.png";
@@ -9,6 +9,7 @@ import { Menu, Moon, Sun, X, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import { getUserById } from "@/lib/api/users/getUserByIdClientSide";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,6 +19,20 @@ const Navbar = () => {
 
     const { data: session, isPending } = authClient.useSession()
     const user = session?.user
+    // console.log(user)
+    const [user2, setUser] = useState(null);
+
+    useEffect(() => {
+        const loadUser = async () => {
+            if (session?.user?.id) {
+                const data = await getUserById(user?.id);
+                setUser(data);
+            }
+        };
+
+        loadUser();
+    }, [session, user?.id]);
+    // console.log(user2)
 
     const handleWrapperClick = () => {
         inputRef.current?.focus();
@@ -33,11 +48,11 @@ const Navbar = () => {
         artist: '/dashboard/artist',
         admin: '/dashboard/admin'
     }
-    if (user?.email) {
+    if (user2?.email) {
         navlinks.push(
             {
                 name: 'Dashboard',
-                href: dashboardLinks[user?.role || 'user']
+                href: dashboardLinks[user2?.role || 'user']
             }
         )
     }
