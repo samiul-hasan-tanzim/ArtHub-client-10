@@ -1,4 +1,4 @@
-import DashboardReloadHandler from "@/components/dashboard/DashboardReloadHandler";
+
 import DashboardSideBar from "@/components/dashboard/DashboardSideBar";
 
 const DashboardLayout = ({ children }) => {
