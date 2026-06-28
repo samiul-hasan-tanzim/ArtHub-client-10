@@ -15,10 +15,12 @@ export const getUserSession = async () => {
 
 
 
-const session = await auth.api.getSession({
-    headers: await headers()
-})
+
 export const getUserSession2 = async () => {
+    const session = await auth.api.getSession({
+        headers: await headers()
+    })
+
     const user = await getUserById(session?.user?.id);
 
     return user || null
