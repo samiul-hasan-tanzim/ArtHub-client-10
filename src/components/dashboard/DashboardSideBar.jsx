@@ -5,9 +5,11 @@ import { Avatar, Button, Chip, Drawer, Input } from "@heroui/react";
 import { LayoutDashboard, Palette, ShoppingBag, DollarSign, Users, BarChart3, Search, House, ArrowLeftFromLine, CreditCard, ImageIcon, PlusSquare, LogOut, Menu } from "lucide-react";
 import Link from "next/link";
 import LogoutButton from "../logout-button";
+import { getUserById } from "@/lib/api/users/getUserById";
 
 const DashboardSideBar = async () => {
     const user = await getUserSession();
+    const directUser = await getUserById(user?.id)
 
     const userNavLinks = [
         { icon: LayoutDashboard, href: "/dashboard/user", label: "Overview" },
@@ -61,17 +63,15 @@ const DashboardSideBar = async () => {
                 <div className="mb-6">
                     <div className="flex gap-3 items-center">
                         <Avatar>
-                            <Avatar.Image src={user?.image} />
+                            <Avatar.Image src={directUser?.image} />
                             <Avatar.Fallback>U</Avatar.Fallback>
                         </Avatar>
 
                         <div>
-                            <p className="font-medium">{user?.name}</p>
-                            <p className="text-xs text-zinc-500 capitalize">{user?.role}</p>
+                            <p className="font-medium">{directUser?.name}</p>
+                            <Chip className="text-xs capitalize" color="success">{directUser?.role}</Chip>
                         </div>
                     </div>
-
-                    <Chip className="mt-3" color="warning">Premium Account</Chip>
                 </div>
 
                 {/* Search */}

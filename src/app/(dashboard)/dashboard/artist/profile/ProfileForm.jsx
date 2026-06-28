@@ -47,13 +47,13 @@ const ProfileForm = ({ user }) => {
             imageUrl = await uploadToImgBB(imageFile);
         }
 
-        const result = await updateUser(user.id, {
+        const result = await updateUser(user._id, {
             name,
             image: imageUrl
         });
 
         setLoading(false);
-
+        // console.log(result)
         if (result.modifiedCount > 0) {
             toast.success("Profile updated");
         }

@@ -1,15 +1,20 @@
 "use client";
 import { Trash2, AlertTriangle } from "lucide-react";
 import { Button, Modal } from "@heroui/react";
-import { deleteArtWork } from "@/lib/action/ArtWorkDelete";
+import { deleteArtwork } from "@/lib/api/artwork/deleteArtwork";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+// import { deleteArtWork } from "@/lib/action/ArtWorkDelete";
 
 const DeleteArtWorkModal = ({ art }) => {
+    const router = useRouter()
 
     const handleDelete = async () => {
-        const res = await deleteArtWork(art._id)
+        const res = await deleteArtwork(art._id)
         if (res.deletedCount) {
-            alert("Deleted successfully")
+            toast.success("Deleted successfully")
         }
+        router.refresh()
     };
 
     return (

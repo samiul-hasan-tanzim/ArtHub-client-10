@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const artists = [
     {
-        id: 1,
+        id: '?search=Artist+1',
         name: "Elena Vance",
         category: "Contemporary Abstract",
         img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80"
@@ -76,7 +76,7 @@ const EliteCreators = () => {
                             </p>
 
                             <Link
-                                href={`/artists/${artist.id}`}
+                                href={`/artworks${artist.id}`}
                                 className="mt-6 flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-500 hover:gap-4"
                             >
                                 <span className="text-xs uppercase tracking-wider font-medium">

@@ -87,6 +87,9 @@ const SignUpPage = () => {
             <div className="w-full max-w-5xl grid md:grid-cols-2 border border-zinc-200 dark:border-zinc-800">
 
                 <div className="hidden md:flex flex-col justify-center p-12 border-r border-zinc-200 dark:border-zinc-800">
+                    <Link href="/" className="mb-10 text-xs uppercase tracking-[0.2em] text-zinc-500 hover:text-black dark:hover:text-white transition">
+                        ← Back to Home
+                    </Link>
                     <p className="text-xs tracking-[0.2em] uppercase text-amber-500 mb-4">Join ArtHub</p>
                     <h1 className={`${playfair.className} text-5xl font-black mb-6`}>
                         Create Your Collector Profile

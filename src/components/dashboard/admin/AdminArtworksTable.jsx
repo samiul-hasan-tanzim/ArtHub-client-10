@@ -7,6 +7,7 @@ import { useState } from "react";
 
 import { deleteArtwork } from "@/lib/api/artwork/deleteArtwork";
 import { updateArtworkStatus } from "@/lib/api/artwork/updateArtworkStatus";
+import DeleteArtWorkModal from "@/components/ui/DeleteArtWorkModal";
 
 const AdminArtworksTable = ({ artworks }) => {
     const router = useRouter();
@@ -161,7 +162,7 @@ const AdminArtworksTable = ({ artworks }) => {
 
                             <td className="px-6 py-5">
 
-                                <button
+                                {/* <button
                                     disabled={loadingId === art._id}
                                     onClick={() =>
                                         handleDelete(
@@ -181,7 +182,8 @@ const AdminArtworksTable = ({ artworks }) => {
                                     "
                                 >
                                     <Trash2 size={16} />
-                                </button>
+                                </button> */}
+                                <DeleteArtWorkModal art={art} />
 
                             </td>
 

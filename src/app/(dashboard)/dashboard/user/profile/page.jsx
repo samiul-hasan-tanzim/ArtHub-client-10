@@ -3,16 +3,27 @@
 import { authClient } from "@/lib/auth-client";
 import ProfileForm from "./ProfileForm";
 import ChangePassword from "./ChangePassword";
+import DashboardLoading from "@/app/(dashboard)/loading";
+import { useEffect, useState } from "react";
+import { getUserById } from "@/lib/api/users/getUserByIdClientSide";
 
 const ProfilePage = () => {
     const { data: session, isPending } = authClient.useSession();
+    const [user, setUser] = useState(null);
 
-    if (isPending) {
-        return (
-            <div className="py-20 text-center text-zinc-500">
-                Loading profile...
-            </div>
-        );
+    useEffect(() => {
+        const loadUser = async () => {
+            if (session?.user?.id) {
+                const data = await getUserById(session?.user?.id);
+                setUser(data);
+            }
+        };
+
+        loadUser();
+    }, [session]);
+
+    if (isPending || !user) {
+        return <DashboardLoading />
     }
 
     return (
@@ -28,7 +39,7 @@ const ProfilePage = () => {
                 </p>
             </div>
 
-            <ProfileForm user={session?.user} />
+            <ProfileForm user={user} />
 
             <ChangePassword />
 

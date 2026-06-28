@@ -7,6 +7,7 @@ import { UploadCloud, Check, ChevronDown, LoaderCircle } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { submitArtWord } from "@/lib/action/ArtWorkPost";
 import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 const categories = ["Abstract", "Portrait", "Digital Art", "Nature", "Conceptual", "Oil Painting"];
 
@@ -62,12 +63,12 @@ const AddArtwork = () => {
             image: imageUrl
         };
 
-        console.log(artworkData);
+        // console.log(artworkData);
         const res = await submitArtWord(artworkData)
         setLoading(false);
 
         if (res.insertedId) {
-            alert('Art Posted successfully!')
+            toast.success('Art Posted successfully!')
             e.target.reset()
             redirect(`/dashboard/artist/artworks`)
         }

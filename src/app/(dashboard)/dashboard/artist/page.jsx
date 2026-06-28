@@ -1,7 +1,19 @@
 import Link from "next/link";
 import { Palette, PlusCircle, DollarSign, User } from "lucide-react";
+// import { getArtworkById } from "@/lib/api/artwork/getArtworkById";
+import { getUserSession } from "@/lib/core/session";
+import { getArtByArtist } from "@/lib/api/getArtByArtistId";
 
-const ArtistDashboardPage = () => {
+const ArtistDashboardPage = async () => {
+    const user = await getUserSession()
+    const artworks = await getArtByArtist(user?.id);
+
+    const sold = artworks.filter(sold => sold.sold)
+
+    const recentSales = sold.slice(-3).reverse()
+    const totalPrice = sold.reduce((sum, order) => sum + order.price, 0);
+
+
     return (
         <section className="space-y-10">
 
@@ -31,7 +43,7 @@ const ArtistDashboardPage = () => {
                     </p>
 
                     <h2 className="text-2xl font-bold mt-1">
-                        12
+                        {artworks.length}
                     </h2>
                 </div>
 
@@ -43,7 +55,7 @@ const ArtistDashboardPage = () => {
                     </p>
 
                     <h2 className="text-2xl font-bold mt-1">
-                        $2,450
+                        ${totalPrice}
                     </h2>
                 </div>
 
@@ -55,7 +67,7 @@ const ArtistDashboardPage = () => {
                     </p>
 
                     <h2 className="text-2xl font-bold mt-1">
-                        7
+                        {sold.length}
                     </h2>
                 </div>
 
@@ -138,20 +150,14 @@ const ArtistDashboardPage = () => {
 
                 <div className="space-y-4">
 
-                    <div className="flex justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
-                        <span>Abstract Horizon</span>
-                        <span>$450</span>
-                    </div>
-
-                    <div className="flex justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
-                        <span>Silent Ocean</span>
-                        <span>$700</span>
-                    </div>
-
-                    <div className="flex justify-between">
-                        <span>Golden Memory</span>
-                        <span>$320</span>
-                    </div>
+                    {
+                        recentSales.map((salse, i) => (
+                            <div key={i} className="flex justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+                                <span>{salse.artName}</span>
+                                <span>{salse.price}</span>
+                            </div>
+                        ))
+                    }
 
                 </div>
             </div>

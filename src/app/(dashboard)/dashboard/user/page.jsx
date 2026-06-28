@@ -6,8 +6,21 @@ import {
     User,
     CreditCard
 } from "lucide-react";
+import { getUserSession } from "@/lib/core/session";
+import { getOrdersByBuyer } from "@/lib/api/orders/getOrdersByBuyer";
+import { getUserById } from "@/lib/api/users/getUserById";
 
-const UserDashboard = () => {
+const UserDashboard = async () => {
+    const user = await getUserSession();
+
+    const orders = await getOrdersByBuyer(user?.id);
+    const recentPurchase = orders.slice(-3).reverse()
+    const totalPrice = orders.reduce((sum, order) => sum + order.price, 0);
+
+    const data = await getUserById(user?.id);
+    const plan = data.plan.split("_").join(" ")
+
+
     return (
         <section className="space-y-10">
 
@@ -37,7 +50,7 @@ const UserDashboard = () => {
                     </p>
 
                     <h2 className="text-2xl font-bold mt-1">
-                        8
+                        {orders.length}
                     </h2>
                 </div>
 
@@ -49,7 +62,7 @@ const UserDashboard = () => {
                     </p>
 
                     <h2 className="text-2xl font-bold mt-1">
-                        $3,450
+                        ${totalPrice}
                     </h2>
                 </div>
 
@@ -61,7 +74,7 @@ const UserDashboard = () => {
                     </p>
 
                     <h2 className="text-2xl font-bold mt-1">
-                        8
+                        {orders.length}
                     </h2>
                 </div>
 
@@ -72,8 +85,8 @@ const UserDashboard = () => {
                         Current Plan
                     </p>
 
-                    <h2 className="text-2xl font-bold mt-1">
-                        Pro
+                    <h2 className="text-2xl font-bold mt-1 capitalize">
+                        {plan}
                     </h2>
                 </div>
 
@@ -132,22 +145,14 @@ const UserDashboard = () => {
                 </h2>
 
                 <div className="space-y-4">
-
-                    <div className="flex justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
-                        <span>Silent Ocean</span>
-                        <span>$450</span>
-                    </div>
-
-                    <div className="flex justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
-                        <span>Golden Horizon</span>
-                        <span>$620</span>
-                    </div>
-
-                    <div className="flex justify-between">
-                        <span>Abstract Vision</span>
-                        <span>$900</span>
-                    </div>
-
+                    {
+                        recentPurchase.map((order, i) => (
+                            <div key={i} className="flex justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+                                <span>{order.artworkName}</span>
+                                <span>{order.price}</span>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
 

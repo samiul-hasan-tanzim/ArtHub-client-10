@@ -79,10 +79,8 @@ const Navbar = () => {
 
                                         <Dropdown.Popover>
                                             <Dropdown.Menu>
-                                                <Dropdown.Item textValue="dashboard">
-                                                    <Link href={navlink.href} className="block w-full">
-                                                        Dashboard
-                                                    </Link>
+                                                <Dropdown.Item textValue="dashboard" href={navlink.href}>
+                                                    Dashboard
                                                 </Dropdown.Item>
 
                                                 <Dropdown.Item
@@ -90,22 +88,25 @@ const Navbar = () => {
                                                         setTheme(theme === "dark" ? "light" : "dark")
                                                     }
                                                     textValue="theme toggle"
+                                                    className="flex flex-row-reverse justify-between items-center w-full"
                                                 >
-                                                    <button className="flex flex-row-reverse justify-between w-full items-center">
-                                                        {theme === "dark" ? (
-                                                            <>
-                                                                <Sun size={16} /> Light Mode
-                                                            </>
-                                                        ) : (
-                                                            <>
-                                                                <Moon size={16} /> Dark Mode
-                                                            </>
-                                                        )}
-                                                    </button>
+                                                    {theme === "dark" ? (
+                                                        <>
+                                                            <Sun size={16} />
+                                                            Light Mode
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <Moon size={16} />
+                                                            Dark Mode
+                                                        </>
+                                                    )}
                                                 </Dropdown.Item>
-
-                                                <Dropdown.Item textValue="logout">
-                                                    <button onClick={async () => await authClient.signOut()}>Logout</button>
+                                                <Dropdown.Item
+                                                    textValue="logout"
+                                                    onClick={async () => await authClient.signOut()}
+                                                >
+                                                    Logout
                                                 </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown.Popover>
