@@ -49,12 +49,10 @@ const LoginPage = () => {
         setLoading(false);
 
         if (data?.user?.role === 'user') {
-            sessionStorage.setItem("just_logged_in", "true");
             window.location.href = "/";
 
         }
         else {
-            sessionStorage.setItem("just_logged_in", "true");
             window.location.href = `/dashboard/${data?.user?.role}`;
         }
 
