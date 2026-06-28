@@ -119,7 +119,10 @@ const Navbar = () => {
                                                 </Dropdown.Item>
                                                 <Dropdown.Item
                                                     textValue="logout"
-                                                    onClick={async () => await authClient.signOut()}
+                                                    onClick={async () => {
+                                                        await authClient.signOut();
+                                                        window.location.reload();
+                                                    }}
                                                 >
                                                     Logout
                                                 </Dropdown.Item>
@@ -204,7 +207,15 @@ const Navbar = () => {
                                 )
                             }
                             {
-                                user ? <Button onClick={async () => await authClient.signOut()} className="w-full">Sign Out</Button> : (
+                                user ? <Button
+                                    onClick={async () => {
+                                        await authClient.signOut();
+                                        window.location.reload();
+                                    }}
+                                    className="w-full"
+                                >
+                                    Sign Out
+                                </Button> : (
                                     <div>
                                         <Link href={'/register'}>
                                             <Button className="w-full">Sign Up</Button>
