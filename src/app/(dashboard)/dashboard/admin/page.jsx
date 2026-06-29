@@ -23,13 +23,6 @@ const AdminDashboardPage = async () => {
     const sold = allArtWorks.filter(sold => sold.sold)
     const totalRevenue = sold.reduce((sum, order) => sum + order.price, 0);
 
-    console.log(allUser)
-    console.log(allArtWorks)
-    console.log(sold)
-    console.log(activeArtists)
-    console.log(paidMembers)
-
-
     return (
         <section className="space-y-12">
 

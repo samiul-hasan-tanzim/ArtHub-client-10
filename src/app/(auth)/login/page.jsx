@@ -122,7 +122,7 @@ const LoginPage = () => {
 
                                 <Input
                                     placeholder="john@example.com"
-                                    className="pl-10"
+                                    className="pl-10 w-full"
                                 />
                             </div>
 
@@ -145,7 +145,7 @@ const LoginPage = () => {
 
                                 <Input
                                     placeholder="Enter password"
-                                    className="pl-10 pr-10"
+                                    className="pl-10 pr-10 w-full"
                                 />
 
                                 <button

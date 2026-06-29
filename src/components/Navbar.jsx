@@ -64,13 +64,15 @@ const Navbar = () => {
             <header className="mx-auto flex h-20 w-11/12 items-center justify-between px-4">
 
                 <div className="flex items-center gap-10">
-                    <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                        {isMenuOpen ? <X /> : <Menu />}
-                    </button>
-                    <div className="flex items-center gap-2">
-                        <Image className="dark:invert" src={logo} alt="logo" width={32} height={32}></Image>
-                        <p className={`${playfair.className} text-2xl font-black tracking-tight text-foreground`}>ArtHub</p>
-                    </div>
+                    <Link href={'/'}>
+                        <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                            {isMenuOpen ? <X /> : <Menu />}
+                        </button>
+                        <div className="flex items-center gap-2">
+                            <Image className="dark:invert" src={logo} alt="logo" width={32} height={32}></Image>
+                            <p className={`${playfair.className} text-2xl font-black tracking-tight text-foreground`}>ArtHub</p>
+                        </div>
+                    </Link>
                 </div>
 
                 <ul className="hidden items-center gap-8 md:flex absolute left-1/2 transform -translate-x-1/2">

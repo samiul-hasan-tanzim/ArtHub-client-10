@@ -1,6 +1,8 @@
 import Results from "@/components/artworks/Results";
+import ResultsSkeleton from "@/components/artworks/ResultsSkeleton";
 import SearchAndFilter from "@/components/artworks/Search&Filter";
 import { playfair } from "@/lib/fonts";
+import { Suspense } from "react";
 
 const AllArtWorks = async ({ searchParams }) => {
 
@@ -28,12 +30,14 @@ const AllArtWorks = async ({ searchParams }) => {
 
             <SearchAndFilter />
 
-            <Results
-                search={search}
-                category={category}
-                sort={sort}
-                page={page}
-            />
+            <Suspense fallback={<ResultsSkeleton />}>
+                <Results
+                    search={search}
+                    category={category}
+                    sort={sort}
+                    page={page}
+                />
+            </Suspense>
 
         </section>
     );

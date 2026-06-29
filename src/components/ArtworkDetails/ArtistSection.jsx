@@ -6,6 +6,7 @@ import { getUser } from "@/lib/api/getUser";
 const ArtistSection = async ({ artistData }) => {
     // console.log(artistData)
     const artist = await getUser(artistData?.artistId)
+    console.log(artist)
     if (!artist) {
         return (
             <section className="py-24 lg:py-32 border-t border-zinc-200 dark:border-zinc-800">

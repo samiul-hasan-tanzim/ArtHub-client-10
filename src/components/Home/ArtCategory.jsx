@@ -3,12 +3,13 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { playfair } from "@/lib/fonts";
+import Link from "next/link";
 
 const categories = {
     painting: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=1200&q=80",
-    digital: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
-    sculpture: "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80",
-    photography: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80"
+    digital: "https://cdn.prod.website-files.com/65b19286607e503b8ea1a054/65df25465e3bbeeadb44830b_3-Important-Techniques.jpeg",
+    nature: "https://rukminim2.flixcart.com/image/480/480/jeek8sw0/poster/n/h/c/medium-exclusive-azohp2182-beautiful-landscape-nature-art-river-original-imaf333tg5ytntbf.jpeg?q=90",
+    conceptual: "https://images.hdqwalls.com/wallpapers/fantasy-art-landscape-concept-art-4k-4i.jpg"
 };
 
 const CategoryBlock = ({ img, title, subtitle, large }) => (
@@ -63,34 +64,42 @@ const ArtCategory = () => {
 
                     {/* LEFT HERO */}
                     <div className="lg:col-span-2">
-                        <CategoryBlock
-                            img={categories.painting}
-                            title="Painting"
-                            subtitle="Traditional Masterpieces"
-                            large
-                        />
+                        <Link href={`/artworks?category=Oil+Painting`}>
+                            <CategoryBlock
+                                img={categories.painting}
+                                title="Painting"
+                                subtitle="Traditional Masterpieces"
+                                large
+                            />
+                        </Link>
                     </div>
 
                     {/* RIGHT STACK */}
                     <div className="flex flex-col gap-6">
-                        <CategoryBlock
-                            img={categories.digital}
-                            title="Digital Art"
-                        />
-                        <CategoryBlock
-                            img={categories.sculpture}
-                            title="Sculpture"
-                        />
+                        <Link href={'/artworks?category=Digital+Art'}>
+                            <CategoryBlock
+                                img={categories.digital}
+                                title="Digital Art"
+                            />
+                        </Link>
+                        <Link href={'/artworks?category=Nature'}>
+                            <CategoryBlock
+                                img={categories.nature}
+                                title="Nature"
+                            />
+                        </Link>
                     </div>
 
                     {/* FULL WIDTH FEATURE */}
                     <div className="lg:col-span-3">
-                        <CategoryBlock
-                            img={categories.photography}
-                            title="Lens"
-                            subtitle="Photography Collection"
-                            large
-                        />
+                        <Link href={'/artworks?category=Conceptual'}>
+                            <CategoryBlock
+                                img={categories.conceptual}
+                                title="Conceptual"
+                                subtitle="Photography Collection"
+                                large
+                            />
+                        </Link>
                     </div>
 
                 </motion.div>

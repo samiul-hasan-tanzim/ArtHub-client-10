@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, SearchX } from "lucide-react";
 import Link from "next/link";
 import { getAllArtWorks } from "@/lib/api/artwork/getAllArtWorks";
 
@@ -8,6 +8,50 @@ const Results = async ({ search, category, sort, page }) => {
     const artworks = data.artworks;
     const totalPages = data.totalPages;
     const currentPage = Number(page) || 1;
+
+    if (!artworks || artworks.length === 0) {
+        return (
+            <section className="py-32 flex items-center justify-center">
+                <div className="text-center max-w-xl mx-auto">
+
+                    <div className="w-20 h-20 mx-auto mb-8 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center">
+                        <SearchX size={32} className="text-zinc-400" />
+                    </div>
+
+                    <h2 className="text-3xl font-bold mb-4">
+                        No Artworks Found
+                    </h2>
+
+                    <p className="text-zinc-500 dark:text-zinc-400 leading-8 mb-8">
+                        We couldn’t find any artworks matching your current filters.
+                        Try changing category, search term, or explore the full collection.
+                    </p>
+
+                    <Link
+                        href="/artworks"
+                        className="
+                            inline-flex
+                            items-center
+                            justify-center
+                            px-8
+                            py-3
+                            border
+                            border-zinc-300
+                            dark:border-zinc-700
+                            hover:bg-black
+                            hover:text-white
+                            dark:hover:bg-white
+                            dark:hover:text-black
+                            transition
+                        "
+                    >
+                        Browse All Artworks
+                    </Link>
+
+                </div>
+            </section>
+        );
+    }
 
     return (
         <div>
