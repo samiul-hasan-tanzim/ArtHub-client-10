@@ -43,7 +43,7 @@ const ArtCategory = () => {
 
             {/* background blur */}
 
-            <div className="absolute right-20 bottom-10 w-[450px] h-[450px] bg-zinc-200/30 dark:bg-zinc-800/20 blur-3xl rounded-full"></div>
+            <div className="absolute right-20 bottom-10 w-112.5 h-112.5 bg-zinc-200/30 dark:bg-zinc-800/20 blur-3xl rounded-full"></div>
 
             <div className="w-[92%] xl:w-[82%] 2xl:w-[78%] mx-auto relative z-10">
 
@@ -109,7 +109,7 @@ const ArtCategory = () => {
 
                         <motion.div
                             whileHover={{ y: -6 }}
-                            className="lg:col-span-2 relative h-[500px] rounded-3xl overflow-hidden group cursor-pointer"
+                            className="lg:col-span-2 relative h-125 rounded-3xl overflow-hidden group cursor-pointer"
                         >
 
                             <Image
@@ -121,11 +121,11 @@ const ArtCategory = () => {
                             scale-110
                             group-hover:scale-125
                             transition-all
-                            duration-[1800ms]
+                            duration-1800
                         "
                             />
 
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                            <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
 
                             <div className="absolute bottom-10 left-10">
 
@@ -153,7 +153,7 @@ const ArtCategory = () => {
 
                             <motion.div
                                 whileHover={{ x: 4 }}
-                                className="relative h-[238px] rounded-3xl overflow-hidden group cursor-pointer"
+                                className="relative h-59.5 rounded-3xl overflow-hidden group cursor-pointer"
                             >
 
                                 <Image
@@ -164,7 +164,7 @@ const ArtCategory = () => {
                                 object-cover
                                 group-hover:scale-115
                                 transition-all
-                                duration-[1500ms]
+                                duration-1500
                             "
                                 />
 
@@ -184,7 +184,7 @@ const ArtCategory = () => {
 
                             <motion.div
                                 whileHover={{ x: -4 }}
-                                className="relative h-[238px] rounded-3xl overflow-hidden group cursor-pointer"
+                                className="relative h-59.5 rounded-3xl overflow-hidden group cursor-pointer"
                             >
 
                                 <Image
@@ -195,7 +195,7 @@ const ArtCategory = () => {
                                 object-cover
                                 group-hover:scale-115
                                 transition-all
-                                duration-[1500ms]
+                                duration-1500
                             "
                                 />
 
@@ -217,7 +217,7 @@ const ArtCategory = () => {
 
                         <motion.div
                             whileHover={{ scale: 1.01 }}
-                            className="lg:col-span-3 relative h-[380px] md:h-[500px] rounded-3xl overflow-hidden group cursor-pointer"
+                            className="lg:col-span-3 relative h-95 md:h-125 rounded-3xl overflow-hidden group cursor-pointer"
                         >
 
                             <Image
@@ -229,11 +229,11 @@ const ArtCategory = () => {
                             scale-105
                             group-hover:scale-120
                             transition-all
-                            duration-[2000ms]
+                            duration-2000
                         "
                             />
 
-                            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent"></div>
+                            <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/20 to-transparent"></div>
 
                             <div className="absolute left-10 top-1/2 -translate-y-1/2">
 

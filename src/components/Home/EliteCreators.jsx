@@ -147,10 +147,10 @@ const EliteCreators = () => {
 
                                 <div
                                     className="
-                                w-[280px]
-                                h-[280px]
+                                w-70
+                                h-70
                                 sm:w-[320px]
-                                sm:h-[320px]
+                                sm:h-80
                                 rounded-full
                                 border
                                 border-zinc-300
@@ -179,7 +179,7 @@ const EliteCreators = () => {
                                         group-hover:grayscale-0
                                         group-hover:scale-110
                                         transition-all
-                                        duration-[1800ms]
+                                        duration-1800
                                     "
                                         />
 
@@ -194,7 +194,7 @@ const EliteCreators = () => {
                             <div
                                 className="
                             mt-8
-                            group-hover:translate-y-[-4px]
+                            group-hover:-translate-y-1
                             transition-all
                             duration-500
                         "
@@ -237,7 +237,7 @@ const EliteCreators = () => {
                                     <span
                                         className="
                                     w-10
-                                    h-[1px]
+                                    h-px
                                     bg-foreground
                                 "
                                     ></span>

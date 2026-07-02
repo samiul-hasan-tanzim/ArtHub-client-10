@@ -45,9 +45,9 @@ const ArtworkHero = async ({ artwork, user, orders, plans }) => {
                                 height={900}
                                 className="
                             w-full 
-                            h-[450px]
-                            sm:h-[600px]
-                            xl:h-[780px]
+                            h-112.5
+                            sm:h-150
+                            xl:h-195
                             object-cover
                             transition-all
                             duration-1000
@@ -240,17 +240,11 @@ const ArtworkHero = async ({ artwork, user, orders, plans }) => {
     border-zinc-200
     dark:border-zinc-700
     p-7
-
     bg-zinc-100
     dark:bg-zinc-900
-
-    text-black
-    dark:text-white
-
     flex
     flex-col
     gap-6
-
     shadow-xl
 ">
 

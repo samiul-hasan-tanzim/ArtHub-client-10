@@ -133,14 +133,14 @@ const FeaturedClient = ({ artworks }) => {
                                         height={760}
                                         className="
                                             w-full
-                                            h-[420px]
-                                            sm:h-[500px]
-                                            xl:h-[560px]
+                                            h-105
+                                            sm:h-125
+                                            xl:h-140
                                             object-cover
                                             scale-110
                                             group-hover:scale-125
                                             transition-all
-                                            duration-[1800ms]
+                                            duration-1800
                                             ease-out
                                         "
                                     />
@@ -151,7 +151,7 @@ const FeaturedClient = ({ artworks }) => {
                                         className="
                                             absolute
                                             inset-0
-                                            bg-gradient-to-t
+                                            bg-linear-to-t
                                             from-black/30
                                             via-transparent
                                             to-transparent
@@ -170,7 +170,7 @@ const FeaturedClient = ({ artworks }) => {
                                     className="
                                         mt-6
                                         px-1
-                                        group-hover:translate-y-[-4px]
+                                        group-hover:-translate-y-1
                                         transition-all
                                         duration-500
                                     "
@@ -206,7 +206,7 @@ const FeaturedClient = ({ artworks }) => {
                                         className="
                                             w-10
                                             mt-4
-                                            h-[1px]
+                                            h-px
                                             bg-zinc-300
                                             dark:bg-zinc-700
                                             group-hover:w-20

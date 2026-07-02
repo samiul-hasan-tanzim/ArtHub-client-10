@@ -66,9 +66,9 @@ const ArtistSection = async ({ artistData }) => {
 
                             className="
                         w-full
-                        h-[450px]
-                        md:h-[550px]
-                        xl:h-[650px]
+                        h-112.5
+                        md:h-137.5
+                        xl:h-162.5
                         object-cover
                         rounded-2xl
 

@@ -172,7 +172,7 @@ const HeroSection = () => {
 
                 {/* RIGHT */}
 
-                <div className="relative h-[500px] sm:h-[600px] lg:h-[720px] w-full">
+                <div className="relative h-125 sm:h-150 lg:h-180 w-full">
 
                     {/* Main Image */}
 
@@ -190,9 +190,9 @@ const HeroSection = () => {
                             priority
                             className="
                         w-full
-                        h-[430px]
-                        sm:h-[530px]
-                        lg:h-[640px]
+                        h-107.5
+                        sm:h-132.5
+                        lg:h-160
                         object-cover
                         rounded-2xl
                         shadow-2xl
@@ -217,9 +217,9 @@ const HeroSection = () => {
                             height={400}
                             className="
                         w-full
-                        h-[220px]
-                        sm:h-[270px]
-                        lg:h-[320px]
+                        h-55
+                        sm:h-67.5
+                        lg:h-80
                         object-cover
                         rounded-2xl
                         shadow-xl
@@ -244,8 +244,8 @@ const HeroSection = () => {
                             height={260}
                             className="
                         w-full
-                        h-[180px]
-                        sm:h-[220px]
+                        h-45
+                        sm:h-55
                         object-cover
                         rounded-2xl
                         shadow-xl
