@@ -2,6 +2,34 @@
 import { useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
+
+const container = {
+    hidden: {},
+
+    show: {
+        transition: {
+            staggerChildren: 0.12
+        }
+    }
+};
+
+const item = {
+    hidden: {
+        opacity: 0,
+        y: 35
+    },
+
+    show: {
+        opacity: 1,
+        y: 0,
+
+        transition: {
+            duration: 0.7,
+            ease: [0.22, 1, 0.36, 1]
+        }
+    }
+};
 
 const SearchAndFilter = () => {
     const router = useRouter();
@@ -42,14 +70,44 @@ const SearchAndFilter = () => {
     return (
         <section className="mb-16">
 
-            <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 pb-6 border-b border-zinc-200 dark:border-zinc-800">
+            <motion.div
+
+                variants={container}
+                initial="hidden"
+                animate="show"
+
+                className="
+            flex
+            flex-col
+            xl:flex-row
+            xl:items-center
+            justify-between
+            gap-6
+            pb-6
+            border-b
+            border-zinc-200
+            dark:border-zinc-800
+        "
+            >
 
                 {/* Search */}
 
-                <div className="relative flex items-center w-full sm:w-72 shrink-0">
+                <motion.div
+                    variants={item}
+                    className="relative flex items-center w-full sm:w-72 shrink-0"
+                >
+
                     <button
                         onClick={() => updateURL("search", searchText)}
-                        className="absolute left-4 cursor-pointer text-zinc-400  hover:text-black dark:hover:text-white transition-colors"
+                        className="
+                    absolute
+                    left-4
+                    cursor-pointer
+                    text-zinc-400
+                    hover:text-black
+                    dark:hover:text-white
+                    transition-colors
+                "
                     >
                         <Search size={16} />
                     </button>
@@ -64,19 +122,39 @@ const SearchAndFilter = () => {
                                 updateURL("search", searchText);
                             }
                         }}
-                        className="w-full rounded-full bg-zinc-100 dark:bg-zinc-900 py-2 pl-11 pr-12 text-sm font-medium outline-none focus:ring-1 focus:ring-black dark:focus:ring-white placeholder:text-zinc-400"
+                        className="
+                    w-full
+                    rounded-full
+                    bg-zinc-100
+                    dark:bg-zinc-900
+                    py-2
+                    pl-11
+                    pr-12
+                    text-sm
+                    font-medium
+                    outline-none
+                    focus:ring-1
+                    focus:ring-black
+                    dark:focus:ring-white
+                    placeholder:text-zinc-400
+                "
                     />
-                </div>
 
-                {/* Category buttons */}
+                </motion.div>
 
-                <div className="flex flex-wrap justify-start xl:justify-center gap-2 flex-1">
+                {/* Categories */}
+
+                <motion.div
+                    variants={item}
+                    className="flex flex-wrap justify-start xl:justify-center gap-2 flex-1"
+                >
 
                     <button
                         onClick={() => updateURL("category", "")}
-                        className={`px-5 py-2 rounded-full text-sm font-medium transition-all 
-                            
-                            ${!currentCategory
+
+                        className={`px-5 py-2 rounded-full text-sm font-medium transition-all hover:scale-105
+
+                ${!currentCategory
                                 ? "bg-black text-white dark:bg-white dark:text-black"
                                 : "bg-zinc-100 dark:bg-zinc-900 text-zinc-500 hover:text-black dark:hover:text-white"
                             }`}
@@ -89,9 +167,10 @@ const SearchAndFilter = () => {
                         <button
                             key={category}
                             onClick={() => updateURL("category", category)}
-                            className={`px-5 py-2 rounded-full text-sm font-medium transition-all
-                                
-                                ${currentCategory === category
+
+                            className={`px-5 py-2 rounded-full text-sm font-medium transition-all hover:scale-105
+
+                    ${currentCategory === category
                                     ? "bg-black text-white dark:bg-white dark:text-black"
                                     : "bg-zinc-100 dark:bg-zinc-900 text-zinc-500 hover:text-black dark:hover:text-white"
                                 }`}
@@ -101,13 +180,27 @@ const SearchAndFilter = () => {
 
                     ))}
 
-                </div>
+                </motion.div>
 
                 {/* Sort */}
 
-                <div className="flex flex-col sm:flex-row sm:items-center gap-4 shrink-0">
+                <motion.div
+                    variants={item}
+                    className="flex flex-col sm:flex-row sm:items-center gap-4 shrink-0"
+                >
 
-                    <div className="flex items-center gap-2 pr-4 border-r border-zinc-200 dark:border-zinc-800 text-sm">
+                    <div
+                        className="
+                    flex
+                    items-center
+                    gap-2
+                    pr-4
+                    border-r
+                    border-zinc-200
+                    dark:border-zinc-800
+                    text-sm
+                "
+                    >
 
                         <span className="text-zinc-500">
                             Sort:
@@ -118,17 +211,28 @@ const SearchAndFilter = () => {
                             onChange={(e) =>
                                 updateURL("sort", e.target.value)
                             }
-                            className="bg-white dark:bg-zinc-900 text-black dark:text-white font-semibold outline-none cursor-pointer rounded px-1"
+
+                            className="
+                        bg-white
+                        dark:bg-zinc-900
+                        text-black
+                        dark:text-white
+                        font-semibold
+                        outline-none
+                        cursor-pointer
+                        rounded
+                        px-1
+                    "
                         >
-                            <option value="" className="bg-white text-black dark:bg-zinc-900 dark:text-white">
+                            <option value="">
                                 Newest
                             </option>
 
-                            <option value="low" className="bg-white text-black dark:bg-zinc-900 dark:text-white">
+                            <option value="low">
                                 Price: Low
                             </option>
 
-                            <option value="high" className="bg-white text-black dark:bg-zinc-900 dark:text-white">
+                            <option value="high">
                                 Price: High
                             </option>
 
@@ -136,14 +240,32 @@ const SearchAndFilter = () => {
 
                     </div>
 
-                    <button onClick={handleReset} className="flex items-center gap-2 text-xs font-bold tracking-[0.18em] uppercase whitespace-nowrap">
+                    <button
+                        onClick={handleReset}
+
+                        className="
+                    flex
+                    items-center
+                    gap-2
+                    text-xs
+                    font-bold
+                    tracking-[0.18em]
+                    uppercase
+                    whitespace-nowrap
+                    hover:translate-x-1
+                    transition-all
+                "
+                    >
+
                         <SlidersHorizontal size={16} />
+
                         Reset Filters
+
                     </button>
 
-                </div>
+                </motion.div>
 
-            </div>
+            </motion.div>
 
         </section>
     );

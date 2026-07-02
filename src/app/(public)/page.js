@@ -9,9 +9,17 @@ export default function Home() {
   return (
     <div>
       <Hero />
-      <Featured />
-      <EliteCreators />
-      <ArtCategory />
+      <div className="border-t border-zinc-200 dark:border-zinc-800">
+        <Featured />
+      </div>
+
+      <div className="border-t border-zinc-200 dark:border-zinc-800">
+        <EliteCreators />
+      </div>
+
+      <div className="border-t border-zinc-200 dark:border-zinc-800">
+        <ArtCategory />
+      </div>
     </div>
   );
 }

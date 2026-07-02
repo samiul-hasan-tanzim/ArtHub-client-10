@@ -20,7 +20,7 @@ const item = {
 
 const Footer = () => {
     return (
-        <footer className="bg-black text-white w-full mt-48 overflow-hidden">
+        <footer className="bg-black/90 text-white w-full  overflow-hidden">
 
             {/* MAIN GRID */}
             <motion.div
@@ -28,7 +28,7 @@ const Footer = () => {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, amount: 0.2 }}
-                className="grid grid-cols-1 md:grid-cols-4 gap-16 px-10 md:px-20 py-28 max-w-7xl mx-auto"
+                className="grid grid-cols-1 md:grid-cols-4 gap-16 py-28 w-[92%] xl:w-[82%] 2xl:w-[78%] mx-auto"
             >
 
                 {/* BRAND */}

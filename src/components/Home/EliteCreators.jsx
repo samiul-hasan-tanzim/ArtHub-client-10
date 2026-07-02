@@ -24,66 +24,234 @@ const EliteCreators = () => {
 
 
     return (
-        <section className="py-32 bg-zinc-50 dark:bg-zinc-900/30">
-            <div className="w-11/12 lg:w-8/12 mx-auto">
+        <section className="relative py-32 md:py-40 overflow-hidden">
 
-                <div className="flex flex-col md:flex-row justify-between mb-20 items-start md:items-end gap-6">
-                    <div className="max-w-2xl">
-                        <span className="text-xs tracking-[0.2em] uppercase text-amber-500 mb-4 block font-semibold">
-                            02 / THE MASTERS
+            {/* background */}
+
+            <div className="absolute left-20 top-20 w-96 h-96 bg-zinc-200/40 dark:bg-zinc-800/20 blur-3xl rounded-full"></div>
+
+            <div className="w-[92%] xl:w-[82%] 2xl:w-[78%] mx-auto relative z-10">
+
+                {/* heading */}
+
+                <div className="flex flex-col lg:flex-row justify-between gap-8 mb-24">
+
+                    <div>
+
+                        <span className="text-xs tracking-[0.28em] uppercase text-amber-500 mb-4 block font-medium">
+                            Curated Artists
                         </span>
-                        <h2 className={`${playfair.className} text-4xl md:text-6xl uppercase font-black`}>
+
+                        <h2
+                            className={`
+                        ${playfair.className}
+                        text-4xl
+                        sm:text-5xl
+                        md:text-6xl
+                        xl:text-7xl
+                        font-black
+                    `}
+                        >
                             Elite Creators
                         </h2>
+
                     </div>
 
-                    <p className="text-zinc-500 dark:text-zinc-400 max-w-xs leading-7">
-                        Supporting individual genius through a direct-to-collector ecosystem.
+                    <p className="text-zinc-500 dark:text-zinc-400 max-w-md leading-8">
+                        Exceptional creators redefining contemporary expression through modern visual storytelling.
                     </p>
+
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-14 lg:gap-24">
+                {/* artists */}
+
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-14 xl:gap-20">
 
                     {topArtist.map((artist, i) => (
+
                         <motion.div
                             key={artist._id}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: .7, delay: i * .12 }}
-                            className="flex flex-col group cursor-pointer"
+
+                            initial={{
+                                opacity: 0,
+                                scale: 0.8
+                            }}
+
+                            whileInView={{
+                                opacity: 1,
+                                scale: 1
+                            }}
+
+                            viewport={{
+                                once: true
+                            }}
+
+                            transition={{
+                                duration: 0.9,
+                                delay: i * 0.18
+                            }}
+
+                            animate={{
+                                y:
+                                    i === 0
+                                        ? [0, -10, 0]
+                                        : i === 1
+                                            ? [0, 10, 0]
+                                            : [0, -6, 0]
+                            }}
+
+                            whileHover={{
+                                scale: 1.03
+                            }}
+
+                            className="
+                        flex
+                        flex-col
+                        items-center
+                        text-center
+                        group
+                        cursor-pointer
+                    "
                         >
-                            <div className="aspect-square rounded-full overflow-hidden mb-10 border border-zinc-300 dark:border-zinc-700 transition-all duration-700 group-hover:p-4 group-hover:border-black dark:group-hover:border-white">
-                                <Image
-                                    src={artist?.image}
-                                    alt={artist?.name}
-                                    width={500}
-                                    height={500}
-                                    className="w-full h-full object-cover rounded-full grayscale group-hover:grayscale-0 transition-all duration-700"
+
+                            {/* circular image */}
+
+                            <div className="relative">
+
+                                {/* rotating border */}
+
+                                <motion.div
+                                    animate={{
+                                        rotate: 360
+                                    }}
+
+                                    transition={{
+                                        repeat: Infinity,
+                                        duration: 12,
+                                        ease: "linear"
+                                    }}
+
+                                    className="
+                                absolute
+                                inset-0
+                                rounded-full
+                                border
+                                border-dashed
+                                border-zinc-300
+                                dark:border-zinc-700
+                                scale-110
+                            "
                                 />
+
+                                {/* outer ring */}
+
+                                <div
+                                    className="
+                                w-[280px]
+                                h-[280px]
+                                sm:w-[320px]
+                                sm:h-[320px]
+                                rounded-full
+                                border
+                                border-zinc-300
+                                dark:border-zinc-700
+                                p-3
+                                transition-all
+                                duration-700
+                                group-hover:border-black
+                                dark:group-hover:border-white
+                            "
+                                >
+
+                                    <div className="overflow-hidden rounded-full w-full h-full">
+
+                                        <Image
+                                            src={artist?.image}
+                                            alt={artist?.name}
+                                            width={500}
+                                            height={500}
+
+                                            className="
+                                        w-full
+                                        h-full
+                                        object-cover
+                                        grayscale
+                                        group-hover:grayscale-0
+                                        group-hover:scale-110
+                                        transition-all
+                                        duration-[1800ms]
+                                    "
+                                        />
+
+                                    </div>
+
+                                </div>
+
                             </div>
 
-                            <h4 className={`${playfair.className} text-2xl font-semibold mb-2`}>
-                                {artist?.name}
-                            </h4>
+                            {/* content */}
 
-                            <p className="text-[10px] tracking-widest uppercase text-zinc-500 dark:text-zinc-400">
-                                Top Artist
-                            </p>
-
-                            <Link
-                                href={`/artworks/?search=${artist.name}`}
-                                className="mt-6 flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-500 hover:gap-4"
+                            <div
+                                className="
+                            mt-8
+                            group-hover:translate-y-[-4px]
+                            transition-all
+                            duration-500
+                        "
                             >
-                                <span className="text-xs uppercase tracking-wider font-medium">
+
+                                <h4
+                                    className={`
+                                ${playfair.className}
+                                text-2xl
+                                md:text-3xl
+                                font-semibold
+                                mb-2
+                            `}
+                                >
+                                    {artist?.name}
+                                </h4>
+
+                                <p className="text-xs uppercase tracking-[0.22em] text-zinc-400 mb-6">
+                                    Featured Artist
+                                </p>
+
+                                <Link
+                                    href={`/artworks/?search=${artist.name}`}
+                                    className="
+                                flex
+                                items-center
+                                justify-center
+                                gap-3
+                                text-xs
+                                uppercase
+                                tracking-[0.18em]
+                                font-medium
+                                hover:gap-5
+                                transition-all
+                            "
+                                >
+
                                     Discover Works
-                                </span>
-                                <span className="w-12 h-px bg-foreground"></span>
-                            </Link>
+
+                                    <span
+                                        className="
+                                    w-10
+                                    h-[1px]
+                                    bg-foreground
+                                "
+                                    ></span>
+
+                                </Link>
+
+                            </div>
+
                         </motion.div>
+
                     ))}
 
                 </div>
+
             </div>
         </section>
     );

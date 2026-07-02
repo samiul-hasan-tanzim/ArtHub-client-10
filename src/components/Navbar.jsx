@@ -61,13 +61,14 @@ const Navbar = () => {
 
     return (
         <nav className="sticky top-0 z-40 w-full border-b border-zinc-200 dark:border-zinc-800 bg-background/80 backdrop-blur-lg">
-            <header className="mx-auto flex h-20 w-11/12 items-center justify-between px-4">
+            <header className="mx-auto flex h-20 w-[92%] xl:w-[82%] 2xl:w-[78%] items-center justify-between">
 
                 <div className="flex items-center gap-10">
+                    <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                        {isMenuOpen ? <X /> : <Menu />}
+                    </button>
                     <Link href={'/'}>
-                        <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                            {isMenuOpen ? <X /> : <Menu />}
-                        </button>
+
                         <div className="flex items-center gap-2">
                             <Image className="dark:invert" src={logo} alt="logo" width={32} height={32}></Image>
                             <p className={`${playfair.className} text-2xl font-black tracking-tight text-foreground`}>ArtHub</p>
@@ -154,6 +155,14 @@ const Navbar = () => {
                 </ul>
 
                 <div className="hidden items-center gap-6 md:flex">
+
+                    {!user && (
+                        <button
+                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                        >
+                            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+                        </button>
+                    )}
                     <div
                         className="relative flex items-center cursor-text"
                         onClick={handleWrapperClick}
@@ -164,17 +173,18 @@ const Navbar = () => {
                             ref={inputRef}
                             type="text"
                             placeholder="Search curated works..."
-                            className="pl-10 pr-4 py-2 text-sm bg-transparent border border-transparent 
+                            className="pl-10 pr-4 py-1 text-sm bg-transparent border-2 border-zinc-250 dark:border-white/40 
         hover:border-zinc-200 focus:border-zinc-300 dark:hover:border-black 
         outline-none rounded-md transition-all placeholder:text-zinc-400 
         w-0 focus:w-64"
                         />
                     </div>
 
+
                     {
                         !user && (
                             <Link href="/login">
-                                <button className="border-zinc-800 underline border dark:border-zinc-200 text-foreground font-bold rounded-none px-6 py-2 tracking-wide hover:bg-foreground hover:text-background transition-all text-xs">
+                                <button className="rounded border dark:border-white/40 text-foreground font-bold px-6 py-2 tracking-wide hover:bg-foreground hover:text-background transition-all text-xs">
                                     Login
                                 </button>
                             </Link>

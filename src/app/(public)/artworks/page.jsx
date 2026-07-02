@@ -14,7 +14,7 @@ const AllArtWorks = async ({ searchParams }) => {
     const page = Number(params?.page) || 1;
 
     return (
-        <section className="w-10/12 mx-auto pt-14 md:pt-20 pb-20">
+        <section className="w-[92%] xl:w-[82%] 2xl:w-[78%] mx-auto pt-14 md:pt-20 pb-20">
 
             <header className="mb-12 lg:mb-16">
                 <h1

@@ -39,70 +39,224 @@ const CategoryBlock = ({ img, title, subtitle, large }) => (
 
 const ArtCategory = () => {
     return (
-        <section className="py-32">
-            <div className="w-11/12 lg:w-8/12 mx-auto">
+        <section className="relative py-32 md:py-40 overflow-hidden bg-zinc-50/40 dark:bg-zinc-950/30">
+
+            {/* background blur */}
+
+            <div className="absolute right-20 bottom-10 w-[450px] h-[450px] bg-zinc-200/30 dark:bg-zinc-800/20 blur-3xl rounded-full"></div>
+
+            <div className="w-[92%] xl:w-[82%] 2xl:w-[78%] mx-auto relative z-10">
 
                 {/* HEADER */}
-                <div className="mb-20">
-                    <span className="text-xs tracking-[0.2em] uppercase text-amber-500 mb-4 block font-semibold">
-                        03 / MEDIUMS
-                    </span>
 
-                    <h2 className={`${playfair.className} text-4xl md:text-6xl uppercase font-black`}>
-                        Explore by Category
-                    </h2>
+                <div className="mb-24 flex flex-col lg:flex-row justify-between gap-8">
+
+                    <div>
+
+                        <span className="text-xs tracking-[0.28em] uppercase text-amber-500 mb-4 block font-medium">
+                            Artistic Mediums
+                        </span>
+
+                        <h2
+                            className={`
+                        ${playfair.className}
+                        text-4xl
+                        sm:text-5xl
+                        md:text-6xl
+                        xl:text-7xl
+                        font-black
+                        leading-none
+                    `}
+                        >
+                            Explore By Category
+                        </h2>
+
+                    </div>
+
+                    <p className="max-w-md text-zinc-500 dark:text-zinc-400 leading-8 text-sm sm:text-base">
+                        Discover curated artistic expressions across multiple mediums,
+                        styles and visual disciplines shaping contemporary culture.
+                    </p>
+
                 </div>
 
-                {/* MAIN LAYOUT */}
+                {/* GRID */}
+
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+
+                    initial={{
+                        opacity: 0
+                    }}
+
+                    whileInView={{
+                        opacity: 1
+                    }}
+
+                    viewport={{
+                        once: true
+                    }}
+
+                    transition={{
+                        duration: 1
+                    }}
+
+                    className="grid grid-cols-1 lg:grid-cols-3 gap-6 xl:gap-8"
                 >
 
-                    {/* LEFT HERO */}
-                    <div className="lg:col-span-2">
-                        <Link href={`/artworks?category=Oil+Painting`}>
-                            <CategoryBlock
-                                img={categories.painting}
-                                title="Painting"
-                                subtitle="Traditional Masterpieces"
-                                large
+                    {/* PAINTING */}
+
+                    <Link href={`/artworks?category=Oil+Painting`}>
+
+                        <motion.div
+                            whileHover={{ y: -6 }}
+                            className="lg:col-span-2 relative h-[500px] rounded-3xl overflow-hidden group cursor-pointer"
+                        >
+
+                            <Image
+                                src={categories.painting}
+                                alt="Painting"
+                                fill
+                                className="
+                            object-cover
+                            scale-110
+                            group-hover:scale-125
+                            transition-all
+                            duration-[1800ms]
+                        "
                             />
-                        </Link>
-                    </div>
+
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+
+                            <div className="absolute bottom-10 left-10">
+
+                                <p className="text-[10px] tracking-[0.25em] uppercase text-white/70 mb-3">
+                                    Traditional Collection
+                                </p>
+
+                                <h3 className={`${playfair.className} text-5xl md:text-6xl text-white font-bold`}>
+                                    Painting
+                                </h3>
+
+                            </div>
+
+                        </motion.div>
+
+                    </Link>
 
                     {/* RIGHT STACK */}
+
                     <div className="flex flex-col gap-6">
-                        <Link href={'/artworks?category=Digital+Art'}>
-                            <CategoryBlock
-                                img={categories.digital}
-                                title="Digital Art"
-                            />
+
+                        {/* DIGITAL */}
+
+                        <Link href={`/artworks?category=Digital+Art`}>
+
+                            <motion.div
+                                whileHover={{ x: 4 }}
+                                className="relative h-[238px] rounded-3xl overflow-hidden group cursor-pointer"
+                            >
+
+                                <Image
+                                    src={categories.digital}
+                                    alt="Digital"
+                                    fill
+                                    className="
+                                object-cover
+                                group-hover:scale-115
+                                transition-all
+                                duration-[1500ms]
+                            "
+                                />
+
+                                <div className="absolute inset-0 bg-black/35"></div>
+
+                                <h4 className={`${playfair.className} absolute bottom-6 left-6 text-white text-3xl`}>
+                                    Digital Art
+                                </h4>
+
+                            </motion.div>
+
                         </Link>
-                        <Link href={'/artworks?category=Nature'}>
-                            <CategoryBlock
-                                img={categories.nature}
-                                title="Nature"
-                            />
+
+                        {/* NATURE */}
+
+                        <Link href={`/artworks?category=Nature`}>
+
+                            <motion.div
+                                whileHover={{ x: -4 }}
+                                className="relative h-[238px] rounded-3xl overflow-hidden group cursor-pointer"
+                            >
+
+                                <Image
+                                    src={categories.nature}
+                                    alt="Nature"
+                                    fill
+                                    className="
+                                object-cover
+                                group-hover:scale-115
+                                transition-all
+                                duration-[1500ms]
+                            "
+                                />
+
+                                <div className="absolute inset-0 bg-black/35"></div>
+
+                                <h4 className={`${playfair.className} absolute bottom-6 left-6 text-white text-3xl`}>
+                                    Nature
+                                </h4>
+
+                            </motion.div>
+
                         </Link>
+
                     </div>
 
-                    {/* FULL WIDTH FEATURE */}
-                    <div className="lg:col-span-3">
-                        <Link href={'/artworks?category=Conceptual'}>
-                            <CategoryBlock
-                                img={categories.conceptual}
-                                title="Conceptual"
-                                subtitle="Photography Collection"
-                                large
+                    {/* CONCEPTUAL */}
+
+                    <Link href={`/artworks?category=Conceptual`}>
+
+                        <motion.div
+                            whileHover={{ scale: 1.01 }}
+                            className="lg:col-span-3 relative h-[380px] md:h-[500px] rounded-3xl overflow-hidden group cursor-pointer"
+                        >
+
+                            <Image
+                                src={categories.conceptual}
+                                alt="Conceptual"
+                                fill
+                                className="
+                            object-cover
+                            scale-105
+                            group-hover:scale-120
+                            transition-all
+                            duration-[2000ms]
+                        "
                             />
-                        </Link>
-                    </div>
+
+                            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent"></div>
+
+                            <div className="absolute left-10 top-1/2 -translate-y-1/2">
+
+                                <p className="text-[10px] tracking-[0.25em] uppercase text-white/70 mb-4">
+                                    Experimental Collection
+                                </p>
+
+                                <h3 className={`${playfair.className} text-4xl md:text-4xl lg:text-5xl text-white font-bold mb-3`}>
+                                    Conceptual
+                                </h3>
+
+                                <p className="text-sm text-white/70 max-w-sm">
+                                    Boundary-pushing visual narratives beyond traditional forms.
+                                </p>
+
+                            </div>
+
+                        </motion.div>
+
+                    </Link>
 
                 </motion.div>
+
             </div>
         </section>
     );
